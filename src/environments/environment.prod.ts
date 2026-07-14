@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  apiUrl: 'https://YOUR-RENDER-APP.onrender.com/api',
+  apiUrl: 'https://business-management-api-49uh.onrender.com/api',
 
-  serverUrl: 'https://YOUR-RENDER-APP.onrender.com'
+  serverUrl: 'https://business-management-api-49uh.onrender.com'
 };
