@@ -1,0 +1,46 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-body">
+      <div class="left-panel">
+        <img *ngIf="profileImage" [src]="profileImage" class="profile-image">
+        <div *ngIf="!profileImage" class="avatar">
+          {{ username ? username.charAt(0).toUpperCase() : 'U' }}
+        </div>
+        <input #fileInput hidden type="file" accept="image/*" (change)="onFileSelected($event)">
+        <button *ngIf="isEditMode" pButton type="button" icon="pi pi-upload" class="change-photo-btn" (click)="fileInput.click()">Change Photo</button></div>
+
+      <div class="right-panel">
+        <div class="field-group">
+          <label>Username</label> <input pInputText [(ngModel)]="username" [readonly]="!isEditMode"> </div>
+
+        <div class="field-group">
+          <label>Email</label> <input pInputText [(ngModel)]="email" [readonly]="!isEditMode"> </div>
+
+        <div class="field-group">
+          <label>Member Since</label>  <input pInputText [value]="createdDate" readonly> </div>
+
+        <div class="field-group">
+          <label>Current Password</label>
+          <div class="password-wrapper">
+            <input pInputText [type]="showCurrentPwd ? 'text' : 'password'" [(ngModel)]="currentPassword" [readonly]="!isEditMode">
+            <button *ngIf="isEditMode" type="button" class="eye-btn" (click)="showCurrentPwd = !showCurrentPwd"> <i [class]="showCurrentPwd ? 'pi pi-eye-slash' : 'pi pi-eye'"></i> </button> </div>
+        </div>
+
+        <div class="field-group">
+          <label>New Password</label>
+          <div class="password-wrapper">
+            <input pInputText [type]="showNewPwd ? 'text' : 'password'" [(ngModel)]="newPassword" [readonly]="!isEditMode">
+        <button *ngIf="isEditMode" type="button" class="eye-btn" (click)="showNewPwd = !showNewPwd"> <i [class]="showNewPwd ? 'pi pi-eye-slash' : 'pi pi-eye'"></i> </button>  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <ng-container *ngIf="!isEditMode">
+        <button pButton type="button" label="Edit Profile" icon="pi pi-pencil" (click)="enableEdit()"></button> </ng-container>
+      <ng-container *ngIf="isEditMode">
+        <button pButton type="button" label="Cancel" severity="secondary"(click)="cancelChanges()"></button>
+        <button pButton type="button" label="Save" icon="pi pi-check" [loading]="saving" (click)="saveProfile()"></button> </ng-container>
+    </div>
+  </div>
+</div>

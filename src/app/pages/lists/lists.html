@@ -1,0 +1,392 @@
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<p-dialog header="Task Details" [(visible)]="taskDialog" [modal]="true"
+  [style]="{ width: '95vw', maxWidth: '520px' }" [draggable]="false" [resizable]="false">
+  <div *ngIf="selectedTask" class="dialog-body">
+
+    <div class="dialog-section-title">Task Information</div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="detail-label">Order No</span>
+        <span class="detail-value">{{ selectedTask.orderNo }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Task Name</span>
+        <span class="detail-value">{{ selectedTask.taskName }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Customer</span>
+        <span class="detail-value">{{ selectedTask.customerName }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Status</span>
+        <span class="detail-value">
+          <p-tag *ngIf="selectedTask.status === 'Completed'" value="Completed" severity="success"></p-tag>
+          <p-tag *ngIf="selectedTask.status === 'Pending'" value="Pending" severity="warn"></p-tag>
+          <p-tag *ngIf="selectedTask.status === 'In Progress'" value="In Progress" severity="info"></p-tag>
+        </span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Due Date</span>
+        <span class="detail-value">{{ selectedTask.dueDate | date:'dd MMM yyyy' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Payment Mode</span>
+        <span class="detail-value">{{ selectedTask.paymentMode ?? 'N/A' }}</span>
+      </div>
+    </div>
+
+    <div class="dialog-section-title" style="margin-top:1.5rem">Work Details</div>
+    <div class="work-table-wrapper">
+      <table class="work-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Description</th>
+            <th class="text-right">Qty</th>
+            <th class="text-right">Rate (₹)</th>
+            <th class="text-right">Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="(selectedTask.taskDetails?.length || selectedTask.workDetails?.length) > 0; else noWorkItems">
+          <tr *ngFor="let w of (selectedTask.taskDetails ?? selectedTask.workDetails); let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ w.description }}</td>
+        <td class="text-right">{{ w.qty }}</td>
+        <td class="text-right">{{ w.rate | number:'1.2-2' }}</td>
+        <td class="text-right">{{ w.amount | number:'1.2-2' }}</td>
+  </tr>
+</ng-container>
+<ng-template #noWorkItems>
+  <tr><td colspan="5" class="no-work-items">No work items found</td></tr>
+</ng-template>
+        </tbody>
+        <tfoot>
+          <tr class="subtotal-row">
+            <td colspan="4" class="text-right foot-label">Sub Total (Work)</td>
+            <td class="text-right foot-value">{{ (selectedTask.subTotal ?? 0) | number:'1.2-2' }}</td>
+          </tr>
+          <tr *ngIf="selectedTask.isGstApplied" class="gst-row">
+            <td colspan="4" class="text-right foot-label">GST ({{ selectedTask.gstPercent ?? 18 }}%)</td>
+            <td class="text-right foot-value">{{ (selectedTask.gstAmount ?? 0) | number:'1.2-2' }}</td>
+          </tr>
+          <tr class="grand-total-row">
+            <td colspan="4" class="text-right foot-label-bold">Grand Total (Work)</td>
+            <td class="text-right foot-value-bold">{{ (selectedTask.grandTotal ?? selectedTask.totalAmount ?? 0) | number:'1.2-2' }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="dialog-section-title" style="margin-top:1.5rem">Payment Summary</div>
+    <div class="payment-summary">
+      <div class="payment-row-item">
+        <span>Paid Amount</span>
+        <span>{{ (selectedTask.totalPaid ?? selectedTask.paidAmount ?? 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="payment-row-item">
+        <span>Balance Due</span>
+        <span>{{ (selectedTask.balance ?? 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="payment-row-item">
+        <span>Payment Status</span>
+        <span class="payment-badge"
+          [class.badge-paid]="(selectedTask.paymentStatus ?? selectedTask.status) === 'Paid'"
+          [class.badge-partial]="(selectedTask.paymentStatus ?? selectedTask.status) === 'Partial'"
+          [class.badge-pending]="(selectedTask.paymentStatus ?? selectedTask.status) === 'Pending'"
+          [class.badge-inprogress]="(selectedTask.paymentStatus ?? selectedTask.status) === 'In Progress'">
+          {{ selectedTask.paymentStatus ?? selectedTask.status }}
+        </span> 
+      </div>
+    </div>
+
+  </div>
+</p-dialog>
+
+<p-dialog header="Customer Details" [(visible)]="customerDialog" [modal]="true"
+ [style]="{ width: '95vw', maxWidth: '580px' }" [draggable]="false" [resizable]="false">
+  <div *ngIf="selectedCustomer" class="dialog-body">
+
+    <div class="dialog-section-title">Customer Information</div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="detail-label">Name</span>
+        <span class="detail-value">{{ selectedCustomer.customerName }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Phone</span>
+        <span class="detail-value">{{ selectedCustomer.phoneNumber }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Email</span>
+        <span class="detail-value">{{ selectedCustomer.email }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Address</span>
+        <span class="detail-value">{{ selectedCustomer.address }}</span>
+      </div>
+    </div>
+
+    <div class="dialog-section-title" style="margin-top:1.5rem">
+      Added Tasks <span class="tasks-count">{{ customerLinkedTasks.length }}</span>
+    </div>
+    <div *ngIf="customerLinkedTasks.length === 0" class="no-linked">No tasks linked to this customer on the current page.</div>
+    <div *ngFor="let t of customerLinkedTasks" class="linked-task-card">
+      <div class="linked-task-top">
+        <span class="linked-order">#{{ t.orderNo }} — {{ t.taskName }}</span>
+        <p-tag *ngIf="t.status === 'Completed'" value="Completed" severity="success"></p-tag>
+        <p-tag *ngIf="t.status === 'Pending'" value="Pending" severity="warn"></p-tag>
+        <p-tag *ngIf="t.status === 'In Progress'" value="In Progress" severity="info"></p-tag>
+      </div>
+      <div class="linked-task-amounts">
+        <span>Total: <strong>₹{{ (t.grandTotal ?? t.totalAmount) | number:'1.2-2' }}</strong></span>
+        <span>Balance: <strong>₹{{ t.balance | number:'1.2-2' }}</strong></span>
+      </div>
+    </div>
+
+  </div>
+</p-dialog>
+
+<p-dialog header="Edit Task" [(visible)]="editTaskDialog" [modal]="true"
+ [style]="{ width: '95vw', maxWidth: '860px' }" [draggable]="false" [resizable]="false" styleClass="edit-dialog">
+  <div class="edit-dialog-body">
+
+    <div class="edit-section-title">Task Information</div>
+    <div class="edit-task-grid">
+      <div class="edit-field">
+        <label>Task Name <span class="required">*</span></label>
+        <input type="text" [(ngModel)]="editTask_form.taskName" placeholder="Enter task name" />
+      </div>
+      <div class="edit-field">
+        <label>Status <span class="required">*</span></label>
+        <p-select [options]="statusOptions" [(ngModel)]="editTask_form.status" optionLabel="label" optionValue="value" styleClass="w-full"></p-select>
+      </div>
+      <div class="edit-field">
+        <label>Due Date</label>
+        <p-datepicker [(ngModel)]="editTask_form.dueDate" [showIcon]="true" dateFormat="dd-mm-yy" placeholder="dd-mm-yyyy" styleClass="w-full" appendTo="body"></p-datepicker>
+      </div>
+    </div>
+
+    <div class="edit-section-title" style="margin-top:1.5rem">Work Details</div>
+    <div class="edit-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-num">No.</th>
+            <th class="col-desc">Description</th>
+            <th class="col-qty">Qty</th>
+            <th class="col-rate">Rate (₹)</th>
+            <th class="col-amount">Amount (₹)</th>
+            <th class="col-action">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of editTask_workDetails; let i = index">
+            <td class="col-num">{{ i + 1 }}</td>
+            <td class="col-desc"><input type="text" [(ngModel)]="item.description" placeholder="Description" /></td>
+            <td class="col-qty"><input type="number" [(ngModel)]="item.qty" min="0" (input)="calculateEditTaskRow(item)" /></td>
+            <td class="col-rate"><input type="number" [(ngModel)]="item.rate" min="0" step="0.01" (input)="calculateEditTaskRow(item)" /></td>
+          <td class="col-amount amount-cell"> {{item.amount | number:'1.2-2'}} </td>
+            <td class="col-action">
+              <button type="button" class="delete-btn" (click)="removeEditTaskRow(i)" [disabled]="editTask_workDetails.length === 1">🗑</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="add-row-wrapper">
+      <button type="button" class="add-btn" (click)="addEditTaskRow()">+ Add Row</button>
+    </div>
+
+    <div class="edit-section-title" style="margin-top:1.5rem">Payment & Summary</div>
+    <div class="edit-payment-layout">
+      <div class="edit-payment-panel">
+        <div class="edit-field">
+          <label>Payment Mode <span class="required">*</span></label>
+          <p-select [options]="paymentModeOptions" [(ngModel)]="editTask_payment.paymentMode" optionLabel="label" optionValue="value" styleClass="w-full"></p-select>
+        </div>
+        <div class="edit-field">
+          <label>Paid Amount (₹)</label>
+          <input type="number" [(ngModel)]="editTask_payment.paidAmount" min="0" step="0.01" placeholder="0" (input)="calculateEditTaskBalance()" />
+        </div>
+        <div class="edit-field">
+          <label>Balance Amount (₹)</label>
+          <input type="text" [value]="editTask_payment.balanceAmount | number:'1.2-2'" readonly />
+        </div>
+        <div class="edit-field">
+          <label>Payment Status</label>
+          <input type="text" [value]="editTask_payment.paymentStatus" readonly
+            [class.status-paid]="editTask_payment.paymentStatus === 'Paid'"
+            [class.status-partial]="editTask_payment.paymentStatus === 'Partial'"
+            [class.status-pending]="editTask_payment.paymentStatus === 'Pending'" />
+        </div>
+      </div>
+      <div class="edit-summary-panel">
+        <div class="edit-summary-row">
+          <span>Sub Total (₹)</span>
+          <strong>{{ editTask_form.subTotal | number:'1.2-2' }}</strong>
+        </div>
+        <div class="edit-summary-row gst-control-row">
+          <div class="gst-left">
+            <span>Apply GST</span>
+            <p-toggleswitch [(ngModel)]="editTask_form.isGstApplied" (onChange)="onEditTaskGstChange()"></p-toggleswitch>
+          </div>
+          <div class="gst-right" *ngIf="editTask_form.isGstApplied">
+            <label class="gst-label">GST %</label>
+            <input type="number" class="gst-input" [(ngModel)]="editTask_form.gstPercent" min="1" max="100" step="0.5" placeholder="18" (input)="calculateEditTaskTotal()" />
+          </div>
+        </div>
+        <div class="edit-summary-row" *ngIf="editTask_form.isGstApplied">
+          <span>GST Amount (₹)</span>
+          <strong>{{ editTask_form.gstAmount | number:'1.2-2' }}</strong>
+        </div>
+        <div class="edit-summary-row edit-grand-total-row">
+          <span>Grand Total (₹)</span>
+          <strong class="grand-total">{{ editTask_form.grandTotal | number:'1.2-2' }}</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" icon="pi pi-times" severity="secondary" [text]="true" (onClick)="editTaskDialog = false"></p-button>
+    <p-button [label]="isSavingTask ? 'Saving...' : 'Save Changes'" icon="pi pi-check" [disabled]="isSavingTask" (onClick)="saveEditTask()"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Edit Customer" [(visible)]="editCustomerDialog" [modal]="true"
+  [style]="{ width: '560px' }" [draggable]="false" [resizable]="false">
+  <div class="edit-dialog-body">
+    <div class="edit-section-title">Customer Information</div>
+    <div class="edit-customer-grid">
+      <div class="edit-field">
+        <label>Customer Name <span class="required">*</span></label>
+        <input type="text" [(ngModel)]="editCustomer_form.customerName" placeholder="Enter full name"
+          [class.input-error]="customerSubmitted && !editCustomer_form.customerName?.trim()" />
+        <span class="field-error" *ngIf="customerSubmitted && !editCustomer_form.customerName?.trim()">Name is required</span>
+      </div>
+      <div class="edit-field">
+        <label>Phone Number <span class="required">*</span></label>
+        <input type="text" [(ngModel)]="editCustomer_form.phoneNumber" placeholder="10-digit mobile number" maxlength="10"
+          [class.input-error]="customerSubmitted && !isValidPhone(editCustomer_form.phoneNumber)" />
+        <span class="field-error" *ngIf="customerSubmitted && !editCustomer_form.phoneNumber?.trim()">Phone is required</span>
+        <span class="field-error" *ngIf="customerSubmitted && editCustomer_form.phoneNumber?.trim() && !isValidPhone(editCustomer_form.phoneNumber)">Enter a valid 10-digit number</span>
+      </div>
+      <div class="edit-field">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="editCustomer_form.email" placeholder="Enter email address"
+          [class.input-error]="customerSubmitted && !isValidEmail(editCustomer_form.email)" />
+        <span class="field-error" *ngIf="customerSubmitted && !editCustomer_form.email?.trim()">Email is required</span>
+        <span class="field-error" *ngIf="customerSubmitted && editCustomer_form.email?.trim() && !isValidEmail(editCustomer_form.email)">Enter a valid email address</span>
+      </div>
+      <div class="edit-field">
+        <label>Address</label>
+        <input type="text" [(ngModel)]="editCustomer_form.address" placeholder="Enter address" />
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" icon="pi pi-times" severity="secondary" [text]="true" (onClick)="editCustomerDialog = false; customerSubmitted = false"></p-button>
+    <p-button [label]="isSavingCustomer ? 'Saving...' : 'Save Changes'" icon="pi pi-check" [disabled]="isSavingCustomer" (onClick)="saveEditCustomer()"></p-button>
+  </ng-template>
+</p-dialog>
+
+<div class="page">
+
+  <div class="card">
+    <div class="card-header"><h2>Tasks List</h2></div>
+    <div class="toolbar">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-search"></p-inputicon>
+        <input pInputText placeholder="Search by order no, task name or customer..." [(ngModel)]="taskSearch" (input)="searchTasks()">
+      </p-iconfield>
+    </div>
+    <p-table [value]="tasks" responsiveLayout="scroll" styleClass="p-datatable-sm">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Order No</th><th>Task Name</th><th>Customer</th><th>Status</th><th>Total (₹)</th><th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task>
+        <tr>
+          <td>{{ task.orderNo }}</td>
+          <td>{{ task.taskName }}</td>
+          <td>{{ task.customerName }}</td>
+          <td>
+            <p-tag *ngIf="task.status === 'Completed'" value="Completed" severity="success"></p-tag>
+            <p-tag *ngIf="task.status === 'Pending'" value="Pending" severity="warn"></p-tag>
+            <p-tag *ngIf="task.status === 'In Progress'" value="In Progress" severity="info"></p-tag>
+          </td>
+          <td>{{ (task.grandTotal ?? task.totalAmount) | number:'1.2-2' }}</td>
+          <td>
+            <div class="actions">
+              <p-button icon="pi pi-eye" [text]="true" severity="info" (onClick)="viewTask(task)" pTooltip="View"></p-button>
+              <p-button icon="pi pi-pencil" [text]="true" severity="secondary" (onClick)="openEditTask(task)" pTooltip="Edit"></p-button>
+              <p-button icon="pi pi-trash" [text]="true" severity="danger" (onClick)="deleteTask(task.taskId)" pTooltip="Delete"></p-button>
+              <p-button icon="pi pi-file-pdf" [text]="true" severity="danger" (onClick)="generateInvoicePdf(task)" pTooltip="Invoice"></p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="empty-state">
+            <i class="pi pi-inbox empty-icon"></i>
+            <div class="empty-title">No Tasks Found</div>
+            <div class="empty-subtitle">There are currently no tasks to display.</div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="table-footer">
+      <p-paginator [rows]="taskPageSize" [totalRecords]="taskTotalRecords" [rowsPerPageOptions]="[5,10,20]" (onPageChange)="onTaskPageChange($event)"></p-paginator>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h2>Customers</h2></div>
+    <div class="toolbar">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-search"></p-inputicon>
+        <input pInputText placeholder="Search by name, phone or email..." [(ngModel)]="customerSearch" (input)="searchCustomers()">
+      </p-iconfield>
+    </div>
+    <p-table [value]="customers" responsiveLayout="scroll" styleClass="p-datatable-sm">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Order No</th><th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td>{{ customer.orderNo }}</td>
+          <td>{{ customer.customerName }}</td>
+          <td>{{ customer.phoneNumber }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.address }}</td>
+          <td>
+            <div class="actions">
+              <p-button icon="pi pi-eye" [text]="true" severity="info" (onClick)="viewCustomer(customer)" pTooltip="View"></p-button>
+              <p-button icon="pi pi-pencil" [text]="true" severity="secondary" (onClick)="openEditCustomer(customer)" pTooltip="Edit"></p-button>
+              <p-button icon="pi pi-trash" [text]="true" severity="danger" (onClick)="deleteCustomer(customer)" pTooltip="Delete"></p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="empty-state">
+            <i class="pi pi-users empty-icon"></i>
+            <div class="empty-title">No Customers Found</div>
+            <div class="empty-subtitle">There are currently no customers to display.</div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="table-footer">
+      <p-paginator [rows]="customerPageSize" [totalRecords]="customerTotalRecords" [rowsPerPageOptions]="[5,10,20]" (onPageChange)="onCustomerPageChange($event)"></p-paginator>
+    </div>
+  </div>
+</div>

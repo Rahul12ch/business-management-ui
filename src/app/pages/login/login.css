@@ -1,0 +1,21 @@
+.auth-container { min-height: 100vh; display: flex; justify-content: center;
+align-items: center; padding: 1rem; background: #f8fafc;}
+
+.auth-card { width: 100%; max-width: 500px;}
+
+h1 { text-align: center; margin-bottom: 2rem; color: #0f172a;
+font-size: 2rem; font-weight: 700;}
+
+.field { margin-bottom: 1.25rem;}
+.field label { display: block; margin-bottom: .5rem;font-weight: 600; color: #374151; }
+
+input { width: 100%; }
+:host ::ng-deep .p-password,
+:host ::ng-deep .p-password input { width: 100%; }
+
+button { width: 100%; margin-top: .5rem; }
+
+.link { text-align: center; margin-top: 1.5rem; color: #374151; }
+.link a { color: #22c55e; text-decoration: none; font-weight: 600; }
+.link a:hover { text-decoration: underline; }
+.error { display: block; margin-top: .35rem; color: #ef4444; font-size: .85rem; font-weight: 500;}

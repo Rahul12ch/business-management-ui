@@ -1,0 +1,156 @@
+<p-toast position="top-right" />
+<div class="page">
+  <div class="page-header">
+    <h1 class="page-title">New Entry</h1></div>
+
+  <div class="card">
+    <div class="section-header">
+      <h3>1. Customer Information</h3> </div>
+
+    <div class="customer-row">
+      <div class="field flex-grow">
+        <p-select [options]="customerOptions" [(ngModel)]="selectedCustomerId" optionLabel="label" optionValue="value"
+          placeholder="Search and select customer..." (onChange)="onCustomerChange()"
+          [ngClass]="{ 'ng-invalid': customerSelectError }" styleClass="w-full"></p-select>
+        <span class="error-msg" *ngIf="customerSelectError">{{ customerSelectError }}</span> </div>
+      <div class="customer-btn">
+        <button type="button" class="new-customer-btn" [class.active]="showNewCustomerForm" (click)="toggleNewCustomerForm()">{{ showNewCustomerForm ? '✕ Cancel' : '+ New Customer' }}</button>  </div>
+    </div>
+
+    <div class="new-customer-form" *ngIf="showNewCustomerForm">
+      <div class="new-customer-form-header">New Customer Details</div>
+      <div class="new-customer-grid">
+        <div class="field">
+          <label>Customer Name <span class="required">*</span></label>
+          <input type="text" [(ngModel)]="newCustomer.customerName" [class.input-error]="customerNameError" placeholder="Enter full name" />
+          <span class="error-msg" *ngIf="customerNameError">{{ customerNameError }}</span> </div>
+
+        <div class="field">
+          <label>Phone Number <span class="required">*</span></label>
+          <input type="text" [(ngModel)]="newCustomer.phoneNumber" [class.input-error]="customerPhoneError" placeholder="10-digit mobile number" maxlength="10" />
+          <span class="error-msg" *ngIf="customerPhoneError">{{ customerPhoneError }}</span> </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="newCustomer.email" [class.input-error]="customerEmailError" placeholder="Enter email address" />
+          <span class="error-msg" *ngIf="customerEmailError">{{ customerEmailError }}</span> </div>
+
+        <div class="field"> <label>Address</label>
+          <input type="text" [(ngModel)]="newCustomer.address" placeholder="Enter address" /> </div>
+      </div>
+
+      <div class="new-customer-actions">
+        <button type="button" class="nc-save-btn" (click)="saveNewCustomer()">Add Customer</button>
+        <button type="button" class="nc-cancel-btn" (click)="cancelNewCustomer()">Cancel</button> </div>
+    </div>
+
+    <div class="info-grid" *ngIf="selectedCustomer && !showNewCustomerForm">
+      <div> <label>Customer Name</label>
+        <span>{{ selectedCustomer.customerName || '-' }}</span> </div>
+      <div> <label>Phone Number</label>
+        <span>{{ selectedCustomer.phoneNumber || '-' }}</span> </div>
+      <div> <label>Email</label>
+        <span>{{ selectedCustomer.email || '-' }}</span> </div>
+      <div> <label>Address</label>
+        <span>{{ selectedCustomer.address || '-' }}</span> </div>
+    </div>
+
+    <div class="section-header section-space">
+      <h3>2. Task Information</h3> </div>
+
+    <div class="task-grid">
+      <div class="field">
+        <label>Order No</label>
+        <input type="text" [value]="nextOrderLabel" readonly /> </div>
+
+      <div class="field">
+        <label>Task Name <span class="required">*</span></label>
+        <input type="text" [(ngModel)]="task.taskName" [class.input-error]="taskNameError" placeholder="Enter task name" />
+        <span class="error-msg" *ngIf="taskNameError">{{ taskNameError }}</span> </div>
+
+      <div class="field">
+        <label>Status</label>
+        <p-select [options]="statusOptions" [(ngModel)]="task.status" optionLabel="label" optionValue="value" styleClass="w-full"></p-select> </div>
+
+      <div class="field">
+        <label>Due Date</label>
+        <p-datepicker [(ngModel)]="task.dueDate" [showIcon]="true" dateFormat="dd-mm-yy" placeholder="dd-mm-yyyy" styleClass="w-full"></p-datepicker> </div>
+    </div>
+
+    <div class="section-header section-space">
+      <h3>3. Work Details</h3> </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr> <th class="col-num">No.</th>
+            <th class="col-desc">Description</th>
+            <th class="col-qty">Qty</th>
+            <th class="col-rate">Rate (₹)</th>
+            <th class="col-amount">Amount (₹)</th>
+            <th class="col-action">Action</th> </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of workDetails; let i = index">
+            <td class="col-num">{{ i + 1 }}</td>
+            <td class="col-desc"><input type="text" [(ngModel)]="item.description" placeholder="Description" /></td>
+            <td class="col-qty"><input type="number" [(ngModel)]="item.qty" min="0" (input)="calculateRow(item)" /></td>
+            <td class="col-rate"><input type="number" [(ngModel)]="item.rate" min="0" step="0.01" (input)="calculateRow(item)" /></td>
+            <td class="col-amount amount-cell">{{ item.amount | number:'1.2-2' }}</td>
+            <td class="col-action"> <button type="button" class="delete-btn" (click)="removeRow(i)" [disabled]="workDetails.length === 1">🗑</button> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="add-row-wrapper">
+      <button type="button" class="add-btn" (click)="addRow()">+ Add Row</button> </div>
+
+    <div class="section-header section-space">
+      <h3>4. Payment & Summary</h3> </div>
+
+    <div class="payment-summary-layout">
+      <div class="payment-panel">
+        <div class="field">
+          <label>Payment Mode</label>
+          <p-select [options]="paymentModeOptions" [(ngModel)]="payment.paymentMode" optionLabel="label" optionValue="value" styleClass="w-full"></p-select>
+        </div>
+        <div class="field">
+          <label>Paid Amount (₹)</label>
+          <input type="number" [(ngModel)]="payment.paidAmount" min="0" step="0.01" placeholder="0.00" (input)="calculateBalance()" /></div>
+        <div class="field">
+          <label>Balance Amount (₹)</label>
+          <input type="text" [value]="payment.balanceAmount | number:'1.2-2'" readonly /> </div>
+        <div class="field">
+          <label>Payment Status</label>
+          <input type="text" [value]="payment.paymentStatus" readonly
+            [class.status-paid]="payment.paymentStatus === 'Paid'"
+            [class.status-partial]="payment.paymentStatus === 'Partial'"
+            [class.status-pending]="payment.paymentStatus === 'Pending'" /> </div>
+      </div>
+
+      <div class="summary-panel">
+        <div class="summary-row">
+          <span>Sub Total (₹)</span>
+          <strong class="sum-value">{{ task.subTotal | number:'1.2-2' }}</strong> </div>
+        <div class="summary-row gst-control-row">
+          <div class="gst-left">
+            <span>Apply GST</span>
+            <p-toggleswitch [(ngModel)]="task.isGstApplied" (onChange)="onGstChange()"></p-toggleswitch> </div>
+          <div class="gst-right" *ngIf="task.isGstApplied">
+            <label class="gst-label">GST %</label>
+            <input type="number" class="gst-input" [(ngModel)]="task.gstPercent" min="1" max="100" step="0.5" placeholder="18" (input)="calculateTotal()" /> </div>
+        </div>
+        <div class="summary-row" *ngIf="task.isGstApplied">
+          <span>GST Amount (₹)</span>
+          <strong class="sum-value">{{ task.gstAmount | number:'1.2-2' }}</strong> </div>
+        <div class="summary-row total">
+          <span>Grand Total (₹)</span>
+          <strong class="sum-value grand">{{ task.grandTotal | number:'1.2-2' }}</strong> </div>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button type="button" class="save-btn" [disabled]="isSaving" (click)="saveTask()"> {{ isSaving ? 'Saving...' : ' Save' }} </button>
+      <button type="button" class="cancel-btn" (click)="resetForm()">✕ Cancel</button></div>
+  </div>
+</div>

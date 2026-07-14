@@ -1,0 +1,68 @@
+<div class="topbar">
+    <div class="topbar-left">
+
+        <button class="mobile-menu-btn" (click)="toggleSidebar()"> <i class="pi pi-bars"></i> </button>
+        <div class="app-title">Business Manager</div>
+        <div class="page-divider"></div>
+        <div class="page-title">{{ currentPage }}</div>
+    </div>
+
+    <div class="topbar-right">
+        <div class="notification-wrapper">
+            <button class="notification-btn" type="button" (click)="toggleNotifications()"> <i class="pi pi-bell"></i>
+                <span *ngIf="unreadCount > 0" class="notification-badge">{{ unreadCount }}</span> </button>
+            <div *ngIf="showNotifications" class="notification-dropdown" (click)="$event.stopPropagation()">
+                <div class="notification-header">
+                    <span>Notifications</span>
+                    <div>
+                        <button class="mark-read-btn" type="button" (click)="markAllRead()">Read</button>
+                        <button class="mark-read-btn" type="button" (click)="clearNotifications()">Clear</button>
+                    </div>
+                </div>
+                <div class="notification-list" *ngIf="notifications.length; else emptyNotifications">
+                    <div class="notification-item" *ngFor="let n of notifications" (click)="markAsRead(n)">
+                        <div class="notification-icon">
+                            <i class="pi" [ngClass]="{ 'pi-briefcase': n.type==='Task',  'pi-wallet': n.type==='Payment',  'pi-user': n.type==='Customer', 'pi-file-pdf': n.type==='Invoice', 'pi-bell': n.type==='System' }"> </i>
+                        </div>
+
+                        <div class="notification-content">
+                            <div class="notification-title">  {{ n.title }} <span *ngIf="!n.isRead" class="unread-dot"></span>  </div>
+                            <div class="notification-message">{{ n.message }}</div>
+                            <div class="notification-time"> {{ n.createdAt | date:'dd MMM yyyy, h:mm a' }} </div>
+                        </div>
+                        <button class="delete-notification" type="button" (click)="deleteNotification(n,$event)">
+                            <i class="pi pi-trash"></i> </button>
+                    </div>
+                </div>
+
+                <ng-template #emptyNotifications>
+                    <div class="notification-empty">No notifications</div>
+                </ng-template>
+
+                <div class="notification-footer">
+                    <button class="view-all-btn" type="button" (click)="loadNotifications()">Refresh</button> </div>
+            </div>
+        </div>
+        <div class="user-section" [class.open]="showDropdown" (click)="toggleDropdown()">
+            <div class="user-avatar">
+                <img *ngIf="profileImage" [src]="profileImage" class="avatar-img"> <span *ngIf="!profileImage">{{ username ? username.charAt(0).toUpperCase() : 'U' }}</span> </div>
+            <div class="user-info">
+                <span class="user-name">{{ username }}</span> </div>
+            <i class="pi pi-chevron-down"></i>
+        </div>
+        <div *ngIf="showDropdown || showNotifications" class="dropdown-backdrop" (click)="closeAllMenus()"> </div>
+        <div *ngIf="showDropdown" class="user-dropdown" (click)="$event.stopPropagation()">
+            <div class="dropdown-header">
+                <div class="dropdown-avatar">
+                    <img *ngIf="profileImage" [src]="profileImage" class="dropdown-avatar-img">
+                    <span *ngIf="!profileImage">{{ username ? username.charAt(0).toUpperCase() : 'U' }}</span> </div>
+                <div>
+                    <div class="dropdown-name">{{ username }}</div>  <div class="dropdown-email">{{ email }}</div>
+                </div>
+            </div>
+
+            <div class="dropdown-item" (click)="goProfile()">  <i class="pi pi-user"></i> <span>View Profile</span> </div>
+            <div class="dropdown-item logout" (click)="logout()"> <i class="pi pi-sign-out"></i>  <span>Logout</span> </div>
+        </div>
+    </div>
+</div>
