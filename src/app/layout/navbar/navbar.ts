@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { AuthService } from '../../services/auth';
 import { Notification } from '../../services/notification';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,7 @@ import { Notification } from '../../services/notification';
   styleUrls: ['./navbar.css']
 })
 export class Navbar implements OnInit, OnDestroy {
-  private readonly apiUrl = 'http://192.168.1.66:5000';
+  private readonly apiUrl = environment.serverUrl;
   @Output() menuToggle = new EventEmitter<void>();
 
   username = '';
