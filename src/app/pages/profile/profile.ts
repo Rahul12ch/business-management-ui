@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,7 @@ import { AuthService } from '../../services/auth';
   styleUrl: './profile.css'
 })
 export class ProfileComponent implements OnInit {
-  private readonly apiUrl = 'http://192.168.1.66:5000';
+  private readonly apiUrl = environment.serverUrl;
   userId = 0;
   username = '';
   email = '';
