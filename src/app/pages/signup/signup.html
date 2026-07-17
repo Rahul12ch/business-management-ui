@@ -1,32 +1,33 @@
 <div class="auth-container">
-
     <p-card class="auth-card">
         <h1>Sign Up</h1>
-        <div class="field">
-            <label>Username *</label>
-            <input pInputText [(ngModel)]="username" maxlength="50" placeholder="Enter username">
-            <small class="error" *ngIf="usernameError"> {{ usernameError }}</small>
+
+        <div class="field"> <label>Username *</label>
+        <input pInputText [(ngModel)]="username" maxlength="50" placeholder="Enter username" [disabled]="loading">
+        <small class="error" *ngIf="usernameError"> {{ usernameError }}</small>
         </div>
 
         <div class="field">
-            <label>Email *</label>
-            <input pInputText type="email" [(ngModel)]="email" maxlength="150" placeholder="Enter email">
-            <small class="error" *ngIf="emailError">{{ emailError }}</small>
+        <label>Email *</label>
+        <input pInputText type="email" [(ngModel)]="email" maxlength="150" placeholder="Enter email" [disabled]="loading">
+        <small class="error" *ngIf="emailError"> {{ emailError}} </small>
         </div>
 
         <div class="field">
-            <label>Password *</label>
-            <p-password [(ngModel)]="password" [feedback]="false" [toggleMask]="true" [maxlength]="50" placeholder="Enter password"></p-password>
-            <small class="error" *ngIf="passwordError">{{ passwordError }}</small>
+        <label>Password *</label>
+        <p-password [(ngModel)]="password" [feedback]="false" [toggleMask]="true" [maxlength]="50" placeholder="Enter password" [disabled]="loading"> </p-password>
+        <small class="error" *ngIf="passwordError"> {{ passwordError }}</small>
         </div>
 
         <div class="field">
-            <label>Confirm Password *</label>
-            <p-password [(ngModel)]="confirmPassword" [feedback]="false" [toggleMask]="true" [maxlength]="50" placeholder="Confirm password"> </p-password>
-            <small class="error" *ngIf="confirmPasswordError"> {{ confirmPasswordError }}</small>
+        <label>Confirm Password *</label>
+        <p-password [(ngModel)]="confirmPassword" [feedback]="false" [toggleMask]="true" [maxlength]="50" placeholder="Confirm password" [disabled]="loading"> </p-password>
+        <small class="error" *ngIf="confirmPasswordError"> {{ confirmPasswordError }} </small>
         </div>
-        <button pButton type="button" label="Sign Up" icon="pi pi-user-plus" [loading]="loading" (click)="register()"> </button>
-        <p class="link"> Already have an account?
-         <a routerLink="/login">Login</a></p>
+
+        <small class="error signup-error" *ngIf="signupError">{{ signupError }} </small>
+        <button pButton type="button" label="Sign Up" icon="pi pi-user-plus" [loading]="loading" [disabled]="loading" (click)="register()"></button>
+
+        <p class="link"> Already have an account? <a routerLink="/login">Login</a></p>
     </p-card>
 </div>

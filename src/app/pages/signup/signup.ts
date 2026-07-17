@@ -33,6 +33,7 @@ export class SignupComponent {
   emailError = '';
   passwordError = '';
   confirmPasswordError = '';
+  signupError = '';
 
   constructor(
     private authService: AuthService,
@@ -90,7 +91,12 @@ export class SignupComponent {
     setTimeout(() => { this.router.navigate(['/login']); }, 300);
   },
   error: (err) => {
-    this.loading = false;
-    this.emailError = err.error || 'Registration Failed'; }
-});
+  this.loading = false;
+  if (err.status === 409) { this.signupError = err.error?.message;
+  }
+  else if (err.status === 0) { this.signupError = 'Unable to connect to the server.';
+  }
+  else { this.signupError = err.error?.message ?? 'Registration failed.';
+  }
+}});
 }}

@@ -6,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
-import { finalize, timeout, TimeoutError } from 'rxjs';
+import { timeout, TimeoutError } from 'rxjs';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -68,26 +68,30 @@ export class LoginComponent {
     if (!isValid) return;
     this.loading = true;
     this.authService.login({ email: this.email.trim(), passwordHash: this.password })
-     .pipe( timeout(30000), finalize(() => { this.loading = false; }) )
-      .subscribe({ next: (response: any) => { if (!response?.token) {  this.loginError = 'Unexpected response from the server. Please try again.';
-      return;
-          }
-          this.authService.saveToken(response.token);
-          localStorage.setItem('userId', response.userId);
-          localStorage.setItem('email', response.email);
-          this.router.navigate(['/home']);
-        },
-        error: (err) => {
-          if (err instanceof TimeoutError) {
-            this.loginError = 'Server took too long to respond. Please try again.';
-          } else if (err.status === 401 || err.status === 404) {
-            this.loginError = "No account found with this email and password. Please sign up.";
-          } else if (err.status === 0) {
-            this.loginError = 'Unable to reach the server. Check your connection and try again.';
-          } else {
-            this.loginError = 'Something went wrong. Please try again.';
-          }
-        }
-      });
+    .pipe( timeout(30000)) .subscribe({ next: async (response: any) => {
+    if (!response?.token) { this.loading = false;
+    this.loginError = 'Unexpected response from the server.';
+    return;  }
+  this.authService.saveToken(response.token);
+  localStorage.setItem('userId', response.userId);
+  localStorage.setItem('email', response.email);
+  await this.router.navigate(['/home']);
+  this.loading = false;
+},
+      error: (err) => {
+  this.loading = false;
+  if (err instanceof TimeoutError) {
+    this.loginError = 'Server took too long to respond. Please try again.';
+  }
+  else if (err.status === 401) {
+    this.loginError = err.error?.message ?? 'Invalid email or password.';
+  }
+  else if (err.status === 0) {
+    this.loginError = 'Unable to reach the server. Check your connection.';
+  }
+  else {
+    this.loginError = err.error?.message ?? 'Something went wrong.';
+  }
+}});
   }
 }
