@@ -58,18 +58,16 @@ export class LoginComponent {
     }
 
     if (!isValid) { return; }
-    this.loading = true;
-    this.authService.login({ email: this.email, passwordHash: this.password })
-    .subscribe({ next: (response: any) => {
-    this.authService.saveToken( response.token );
-     localStorage.setItem( 'userId', response.userId );
-     localStorage.setItem( 'email', response.email );
-     this.router.navigate(['/home']); },
-        
-     error: () => {
-          this.loading = false;
-          this.passwordError = 'Invalid email or password';
-        },
-        complete: () => { this.loading = false;
-        }});
+   this.loading = true;
+this.authService.login({ email: this.email.trim(), passwordHash: this.password
+}).subscribe({ next: (response: any) => {
+    this.authService.saveToken(response.token);
+    localStorage.setItem('userId', response.userId);
+    localStorage.setItem('email', response.email);
+    this.loading = false;
+    setTimeout(() => { this.router.navigate(['/home']); }, 300);},
+    error: () => {
+    this.loading = false;
+    this.passwordError = 'Invalid email or password'; }
+});
 }}

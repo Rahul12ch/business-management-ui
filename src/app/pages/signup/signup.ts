@@ -85,11 +85,12 @@ export class SignupComponent {
       email: this.email.trim(),
       passwordHash: this.password
     })
-    .subscribe({ next: () => { this.router.navigate(['/login']);},
-      error: (err) => {
-        this.loading = false;
-        this.emailError =  err.error || 'Registration Failed'; },
-      complete: () => {
-        this.loading = false;
-      }});
+   .subscribe({ next: () => {
+    this.loading = false;
+    setTimeout(() => { this.router.navigate(['/login']); }, 300);
+  },
+  error: (err) => {
+    this.loading = false;
+    this.emailError = err.error || 'Registration Failed'; }
+});
 }}
