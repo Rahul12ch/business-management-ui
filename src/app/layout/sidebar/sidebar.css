@@ -16,36 +16,40 @@ color:#475569; font-size:14px; font-weight:500; transition:.2s; white-space:nowr
 .sidebar-backdrop{ display:none; }
 @media (max-width:768px){
 
-.sidebar{
+/* Floating Sidebar Card */
 
+.sidebar{
     position:fixed;
 
     top:50%;
     left:50%;
-
     transform:translate(-50%,-50%);
 
-    width:220px;
-    max-width:82vw;
+    width:205px;
+    max-width:78vw;
 
     height:auto;
+    max-height:none;
 
     background:rgba(255,255,255,.97);
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
-    border-radius:22px;
+    border-radius:18px;
 
-    padding:14px;
+    padding:12px;
 
     box-shadow:
-        0 20px 50px rgba(15,23,42,.22),
-        0 8px 20px rgba(15,23,42,.08);
+        0 16px 36px rgba(15,23,42,.16),
+        0 6px 14px rgba(15,23,42,.08);
+
+    overflow:hidden;
 
     z-index:1002;
 
-    transition:.25s ease;
-
-    overflow:hidden;
+    transition:
+        transform .22s ease,
+        opacity .22s ease;
 }
 
 /* Hidden */
@@ -53,24 +57,21 @@ color:#475569; font-size:14px; font-weight:500; transition:.2s; white-space:nowr
 .sidebar.collapsed{
 
     opacity:0;
-
     visibility:hidden;
-
     pointer-events:none;
 
     transform:translate(-50%,-48%) scale(.94);
 }
 
-/* Hide section titles */
+/* Hide Desktop Labels */
 
 .menu-label{
     display:none;
 }
 
-/* Compact spacing */
+/* Menu Sections */
 
 .menu-section{
-
     margin:0;
 }
 
@@ -78,74 +79,79 @@ color:#475569; font-size:14px; font-weight:500; transition:.2s; white-space:nowr
 
     border-bottom:1px solid #ececec;
 
-    margin-bottom:10px;
-
-    padding-bottom:10px;
+    margin-bottom:6px;
+    padding-bottom:6px;
 }
 
-/* Menu */
+/* Menu Items */
 
 .menu-section a{
 
     display:flex;
-
     align-items:center;
 
-    gap:14px;
+    gap:10px;
 
-    height:58px;
+    height:50px;
 
-    padding:0 10px;
-
-    border-radius:16px;
-
-    font-size:17px;
-
-    font-weight:600;
-
-    color:#334155;
-}
-
-/* Icon box */
-
-.menu-section a i{
-
-    width:42px;
-
-    height:42px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    padding:0 8px;
 
     border-radius:14px;
 
-    background:#f7f8fb;
+    text-decoration:none;
 
-    font-size:20px;
+    color:#334155;
 
-    color:#64748b;
+    font-size:15px;
+    font-weight:600;
+
+    transition:all .2s ease;
 }
 
-/* Active */
+.menu-section a:hover{
+
+    background:#f8fafc;
+}
+
+/* Icon */
+
+.menu-section a i{
+
+    width:36px;
+    height:36px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:10px;
+
+    background:#f7f8fb;
+
+    color:#64748b;
+
+    font-size:17px;
+}
+
+/* Active Item */
 
 .active-link{
 
-    background:#ECFFF1 !important;
+    background:#F0FFF5 !important;
 
     color:#16a34a !important;
 }
 
 .active-link i{
 
-    background:#DDFBE7;
+    background:#DCFCE7;
 
     color:#16a34a !important;
 }
 
-/* Background */
+/* Overlay */
 
 .sidebar-backdrop{
 
@@ -158,6 +164,7 @@ color:#475569; font-size:14px; font-weight:500; transition:.2s; white-space:nowr
     background:rgba(15,23,42,.28);
 
     backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
 
     z-index:1001;
 }
