@@ -1,35 +1,19 @@
 # 📸 Screenshots
 
 ## Login
-
-![Login](screenshots/login.png)
-
----
+![Login](login.png)
 
 ## Home / New Entry
+![Home](Dashboard.png)
 
-![Home](screenshots/Dashboard.png)
+## Tasks
+![Tasks](Task.png)
 
----
-
-## Tasks Management
-
-![Tasks](screenshots/Task.png)
-
----
-
-## Customers Management
-
-![Customers](screenshots/Customer.png)
-
----
+## Customers
+![Customers](Customer.png)
 
 ## Profile
+![Profile](Profile.png)
 
-![Profile](screenshots/Profile.png)
-
----
-
-## Mobile Responsive
-
-![Mobile](screenshots/Mobile.png)
+## Mobile
+![Mobile](Mobile.png)
