@@ -5,6 +5,7 @@
 
 ## Home / New Entry
 ![Home](Dashboard.png)
+![Home](screenshots/Dashboard-bottom.png)
 
 ## Tasks
 ![Tasks](Task.png)
