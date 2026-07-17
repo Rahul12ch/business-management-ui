@@ -18,24 +18,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-
-    this.router.events
+  ngOnInit() { this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        if (this.isMobile) {
-          this.sidebarCollapsed = true;
-        }
-      });
-
+      .subscribe(() => { if (this.isMobile) {
+          this.sidebarCollapsed = true;}});
   }
-
-  toggleSidebar() {
-    this.sidebarCollapsed = !this.sidebarCollapsed;
-  }
-
-  closeSidebar() {
-    this.sidebarCollapsed = true;
-  }
-
+  toggleSidebar() { this.sidebarCollapsed = !this.sidebarCollapsed; }
+  closeSidebar() { this.sidebarCollapsed = true; }
 }

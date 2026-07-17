@@ -16,12 +16,136 @@ color:#475569; font-size:14px; font-weight:500; transition:.2s; white-space:nowr
 .sidebar-backdrop{ display:none; }
 @media (max-width:768px){
 
-.sidebar{ top:70px; left:0; width:76px; height:calc(100vh - 70px); max-height:calc(100vh - 70px); 
-border-radius:0; box-shadow:4px 0 20px rgba(0,0,0,.15); padding:20px 8px; overflow-y:auto; }
-.sidebar.collapsed{ transform:translateX(-100%); }
-.menu-label{ display:none; }
-.menu-section a{ justify-content:center; padding:14px 0; gap:0; }
-.menu-section a span{ display:none; }
-.sidebar-backdrop{ display:block; position:fixed; top:70px; left:0; right:0; bottom:0;
-background:rgba(15,23,42,.55); backdrop-filter:blur(3px); z-index:1001; }
+.sidebar{
+
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%) scale(1);
+
+    width:260px;
+    max-width:85vw;
+
+    height:auto;
+    max-height:none;
+
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(18px);
+
+    border-radius:24px;
+
+    padding:18px;
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.22),
+        0 4px 14px rgba(0,0,0,.08);
+
+    z-index:1002;
+
+    overflow:hidden;
+
+    transition:.28s ease;
+}
+
+/* Hidden state */
+
+.sidebar.collapsed{
+
+    transform:translate(-50%,-50%) scale(.9);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+}
+
+/* Menu */
+
+.menu-label{
+    display:none;
+}
+
+.menu-section{
+    margin:0;
+}
+
+.menu-section:not(:last-child){
+    border-bottom:1px solid #ececec;
+    margin-bottom:10px;
+    padding-bottom:10px;
+}
+
+.menu-section a{
+
+    justify-content:flex-start;
+
+    gap:16px;
+
+    height:64px;
+
+    padding:0 14px;
+
+    border-radius:18px;
+
+    font-size:18px;
+
+    font-weight:600;
+}
+
+.menu-section a span{
+    display:block;
+}
+
+.menu-section a i{
+
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    background:#f5f7fa;
+
+    font-size:22px;
+
+    color:#64748b;
+}
+
+.active-link{
+
+    background:#E8FFF0 !important;
+
+    color:#16a34a !important;
+}
+
+.active-link i{
+
+    background:#D8FFE5;
+
+    color:#16a34a !important;
+}
+
+/* Blur background */
+
+.sidebar-backdrop{
+
+    display:block;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.45);
+
+    backdrop-filter:blur(6px);
+
+    z-index:1001;
+}
+
 }

@@ -2,34 +2,22 @@
 
     <div class="menu-section">
         <div class="menu-label">Main</div>
-
         <a routerLink="/home" routerLinkActive="active-link" (click)="onLinkClick()">
-            <i class="pi pi-home"></i>
-            <span>Home</span>
-        </a>
+            <i class="pi pi-home"></i> <span>Home</span> </a>
     </div>
 
     <div class="menu-section">
         <div class="menu-label">Task & Customers</div>
-
         <a routerLink="/lists" routerLinkActive="active-link" (click)="onLinkClick()">
-            <i class="pi pi-list"></i>
-            <span>Lists</span>
-        </a>
+            <i class="pi pi-list"></i> <span>Lists</span> </a>
     </div>
 
     <div class="menu-section">
         <div class="menu-label">Settings</div>
-
         <a routerLink="/profile" routerLinkActive="active-link" (click)="onLinkClick()">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </a>
+            <i class="pi pi-user"></i> <span>Profile</span> </a>
     </div>
 
 </div>
-
-<div class="sidebar-backdrop"
-     *ngIf="!collapsed && isMobile"
-     (click)="requestClose.emit()">
+<div class="sidebar-backdrop"  *ngIf="!collapsed && isMobile"  (click)="requestClose.emit()">
 </div>

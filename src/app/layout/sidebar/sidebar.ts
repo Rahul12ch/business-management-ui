@@ -17,9 +17,7 @@ export class Sidebar {
   isMobile = window.innerWidth <= 768;
 
   @HostListener('window:resize')
-  onResize() {
-    this.isMobile = window.innerWidth <= 768;
-  }
+  onResize() { this.isMobile = window.innerWidth <= 768; }
 
   onLinkClick() {
     if (this.isMobile) {
