@@ -1,4 +1,4 @@
-.profile-container { padding: .75rem 1rem; display: flex; justify-content: center;}
+.profile-container { padding: .75rem 1rem; display: flex; justify-content: center; background: #f8fafc; }
 .profile-card { width: 100%; max-width: 860px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0, 0, 0, .04); }
 .profile-body { display: grid; grid-template-columns: 150px 1fr; gap: 1.5rem; align-items: start;}
 

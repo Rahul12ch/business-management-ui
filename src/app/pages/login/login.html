@@ -1,20 +1,21 @@
 <div class="auth-container">
-    <p-card class="auth-card">
+  <p-card class="auth-card">
     <h1>Login</h1>
+
     <div class="field">
-    <label>Email *</label>
-    <input pInputText type="email" [(ngModel)]="email" [maxlength]="150" autocomplete="email" placeholder="Enter email">
-    <small class="error" *ngIf="emailError"> {{ emailError }} </small>
+      <label>Email *</label>
+      <input pInputText type="email" [(ngModel)]="email" [maxlength]="150" autocomplete="email" placeholder="Enter email" [disabled]="loading">
+      <small class="error" *ngIf="emailError">{{ emailError }}</small>
     </div>
 
     <div class="field">
-    <label>Password *</label>
-    <p-password [(ngModel)]="password" [feedback]="false" [toggleMask]="true" [maxlength]="50" placeholder="Enter password"> </p-password>
-    <small class="error" *ngIf="passwordError"> {{ passwordError }} </small>
+      <label>Password *</label>
+      <p-password [(ngModel)]="password" [feedback]="false" [toggleMask]="true" [maxlength]="50" placeholder="Enter password" [disabled]="loading"></p-password>
+      <small class="error" *ngIf="passwordError">{{ passwordError }}</small>
     </div>
 
-    <button pButton type="button" label="Login" icon="pi pi-sign-in" (click)="login()"></button>
-        <p class="link"> Don't have an account?
-        <a routerLink="/signup">Sign Up</a></p>
-    </p-card>
+    <small class="error login-error" *ngIf="loginError">{{ loginError }}</small>
+    <button pButton type="button" label="Login" icon="pi pi-sign-in" [loading]="loading" [disabled]="loading" (click)="login()"></button>
+    <p class="link">Don't have an account? <a routerLink="/signup">Sign Up</a></p>
+  </p-card>
 </div>

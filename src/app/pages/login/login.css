@@ -19,3 +19,4 @@ button { width: 100%; margin-top: .5rem; }
 .link a { color: #22c55e; text-decoration: none; font-weight: 600; }
 .link a:hover { text-decoration: underline; }
 .error { display: block; margin-top: .35rem; color: #ef4444; font-size: .85rem; font-weight: 500;}
+.login-error { display: block; text-align: center; margin-bottom: .75rem; }

@@ -58,17 +58,21 @@ export class Navbar implements OnInit, OnDestroy {
     window.removeEventListener('profileUpdated',this.profileUpdatedHandler);
     this.notificationTimer?.unsubscribe();
   }
-  loadUser(): void {
-    this.authService .getProfile() .subscribe({ next:(user:any)=>{
-       this.username = user.username ?? '';
-        this.email = user.email ?? '';
-        this.profileImage =  user.profileImage ? `${this.apiUrl}/${user.profileImage}` : '';
-        this.cdr.markForCheck();
-      },
-      error:()=>{ this.username=''; this.email=''; this.profileImage='';
-        this.cdr.markForCheck();
-      }});
+ loadUser(): void { const token = localStorage.getItem('token');
+
+  if (!token) { this.username = ''; this.email = ''; this.profileImage = '';
+    this.cdr.markForCheck();
+    return;
   }
+
+  this.authService.getProfile().subscribe({ next: (user: any) => {
+      this.username = user.username ?? ''; this.email = user.email ?? '';
+      this.profileImage = user.profileImage ? `${this.apiUrl}/${user.profileImage}` : '';
+      this.cdr.markForCheck();
+    },
+    error: () => { this.username = ''; this.email = ''; this.profileImage = ''; this.cdr.markForCheck(); }
+  });
+}
   loadNotifications(): void {
  this.notification .getNotifications() .subscribe(data => {
       this.notification.getUnreadCount().subscribe(count => {
