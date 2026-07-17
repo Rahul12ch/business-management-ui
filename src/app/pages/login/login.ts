@@ -57,17 +57,25 @@ export class LoginComponent {
       this.passwordError ='Must contain uppercase, lowercase, number and special character'; isValid = false;
     }
 
-    if (!isValid) { return; }
-   this.loading = true;
-this.authService.login({ email: this.email.trim(), passwordHash: this.password
-}).subscribe({ next: (response: any) => {
-    this.authService.saveToken(response.token);
-    localStorage.setItem('userId', response.userId);
-    localStorage.setItem('email', response.email);
-    this.loading = false;
-    setTimeout(() => { this.router.navigate(['/home']); }, 300);},
-    error: () => {
-    this.loading = false;
-    this.passwordError = 'Invalid email or password'; }
-});
+  if (!isValid) return;
+  this.loading = true;
+  const timer = setTimeout(() => {
+    if (this.loading) { this.loading = false;  this.passwordError = 'Invalid email or password';
+    }}, 3000);
+  this.authService.login({ email: this.email.trim(), passwordHash: this.password
+  }).subscribe({
+    next: (response: any) => { clearTimeout(timer);
+      this.authService.saveToken(response.token);
+      localStorage.setItem('userId', response.userId);
+      localStorage.setItem('email', response.email);
+      this.loading = false; this.router.navigate(['/home']);
+    },
+    error: (err) => { clearTimeout(timer);
+      this.loading = false;
+      if (err.status === 401) {
+        this.passwordError = 'Invalid email or password';
+      } else {
+        this.passwordError = 'Unable to connect to the server.';
+      }
+    }});
 }}
