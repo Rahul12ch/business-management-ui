@@ -8,28 +8,28 @@
 
 ## Home / New Entry
 
-![Home](screenshots/dashboard.png/dashboard.png(2))
+![Home](screenshots/Dashboard.png)
 
 ---
 
 ## Tasks Management
 
-![Tasks](screenshots/tasks.png)
+![Tasks](screenshots/Task.png)
 
 ---
 
 ## Customers Management
 
-![Customers](screenshots/customers.png)
+![Customers](screenshots/Customer.png)
 
 ---
 
 ## Profile
 
-![Profile](screenshots/profile.png)
+![Profile](screenshots/Profile.png)
 
 ---
 
 ## Mobile Responsive
 
-![Mobile](screenshots/mobile.png)
+![Mobile](screenshots/Mobile.png)
