@@ -66,19 +66,11 @@ export class LoginComponent {
     }
 
     if (!isValid) return;
-
     this.loading = true;
-
     this.authService.login({ email: this.email.trim(), passwordHash: this.password })
-      .pipe(
-        timeout(30000),
-        finalize(() => { this.loading = false; })
-      )
-      .subscribe({
-        next: (response: any) => {
-          if (!response?.token) {
-            this.loginError = 'Unexpected response from the server. Please try again.';
-            return;
+     .pipe( timeout(30000), finalize(() => { this.loading = false; }) )
+      .subscribe({ next: (response: any) => { if (!response?.token) {  this.loginError = 'Unexpected response from the server. Please try again.';
+      return;
           }
           this.authService.saveToken(response.token);
           localStorage.setItem('userId', response.userId);
