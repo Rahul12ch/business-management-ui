@@ -88,8 +88,8 @@ export class LoginComponent {
         error: (err) => {
           if (err instanceof TimeoutError) {
             this.loginError = 'Server took too long to respond. Please try again.';
-          } else if (err.status === 401) {
-            this.loginError = 'Invalid email or password.';
+          } else if (err.status === 401 || err.status === 404) {
+            this.loginError = "No account found with this email and password. Please sign up.";
           } else if (err.status === 0) {
             this.loginError = 'Unable to reach the server. Check your connection and try again.';
           } else {
