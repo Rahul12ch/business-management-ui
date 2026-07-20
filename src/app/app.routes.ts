@@ -14,8 +14,7 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
 
   {
-    path: '',
-    component: LayoutComponent,
+    path: '',  component: LayoutComponent,
     canActivate: [authGuard],
     children: [  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },

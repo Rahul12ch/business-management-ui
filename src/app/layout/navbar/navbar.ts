@@ -108,12 +108,13 @@ export class Navbar implements OnInit, OnDestroy {
     });
   }
 
-  updatePageTitle(url: string): void {
-    if (url.includes('/home')) this.currentPage = 'Home';
-    else if (url.includes('/lists')) this.currentPage = 'Tasks & Customers';
-    else if (url.includes('/profile')) this.currentPage = 'Profile';
-    else this.currentPage = 'Dashboard';
-  }
+updatePageTitle(url: string): void {
+  if (url.includes('/dashboard')) this.currentPage = 'Dashboard';
+  else if (url.includes('/home'))  this.currentPage = 'New Entry';
+  else if (url.includes('/lists'))  this.currentPage = 'Tasks & Customers';
+  else if (url.includes('/profile'))  this.currentPage = 'Profile';
+  else  this.currentPage = 'Dashboard';
+}
 
   toggleSidebar(): void { this.menuToggle.emit(); }
   toggleNotifications(): void {

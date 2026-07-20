@@ -75,7 +75,7 @@ export class LoginComponent {
   this.authService.saveToken(response.token);
   localStorage.setItem('userId', response.userId);
   localStorage.setItem('email', response.email);
-  await this.router.navigate(['/home']);
+  await this.router.navigate(['/dashboard']);
   this.loading = false;
 },
       error: (err) => {
