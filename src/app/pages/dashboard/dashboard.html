@@ -1,55 +1,46 @@
 <div class="dashboard">
 
-    <div class="head">
+    <!-- Header -->
+    <div class="dashboard-header">
 
         <div>
             <h2>Dashboard</h2>
-            <small>Welcome back {{username}} 👋</small>
+            <span class="welcome">Welcome back {{ username }} 👋</span>
         </div>
 
-        <div class="actions">
-
-            <p-button icon="pi pi-refresh" label="Refresh" severity="secondary"
-                [outlined]="true" [loading]="loading" [disabled]="loading"
-                (onClick)="refresh()">
-            </p-button>
-
-            <p-selectButton
-                [(ngModel)]="period"
-                [options]="periods"
-                optionLabel="label"
-                optionValue="value"
-                (ngModelChange)="loadDashboard()">
-            </p-selectButton>
-
-        </div>
+        <p-selectButton [(ngModel)]="period" [options]="periods" optionLabel="label" optionValue="value"
+            (ngModelChange)="loadDashboard()">
+        </p-selectButton>
 
     </div>
 
     <div class="grid">
 
-        <div class="col-12 sm:col-6 lg:col-4 xl:col-3"
-            *ngFor="let c of[
+        <!-- KPI Cards -->
+
+        <div class="col-12 md:col-6 xl:col-2-4" *ngFor="let c of [
+
             {t:'Customers',v:summary.totalCustomers,i:'pi-users'},
-            {t:'Total Tasks',v:summary.totalTasks,i:'pi-briefcase'},
+            {t:'Tasks',v:summary.totalTasks,i:'pi-briefcase'},
             {t:'Pending',v:summary.pendingTasks,i:'pi-clock'},
             {t:'Completed',v:summary.completedTasks,i:'pi-check-circle'},
-            {t:'Revenue',v:'₹'+(summary.totalRevenue|number),i:'pi-wallet'},
-            {t:'Pending Amount',v:'₹'+(summary.pendingAmount|number),i:'pi-credit-card'}
+            {t:'Revenue',v:'₹'+(summary.totalRevenue|number),i:'pi-wallet'}
+
         ]">
 
-            <p-card>
+            <p-card class="kpi-card">
 
-                <div class="card">
+                <div class="kpi">
 
-                    <div class="content">
-                        <span>{{c.t}}</span>
+                    <div>
+
+                        <small>{{c.t}}</small>
+
                         <h2>{{c.v}}</h2>
+
                     </div>
 
-                    <div class="icon">
-                        <i class="pi {{c.i}}"></i>
-                    </div>
+                    <i class="pi {{c.i}}"></i>
 
                 </div>
 
@@ -57,50 +48,105 @@
 
         </div>
 
-        <div class="col-12 xl:col-6">
+        <!-- Revenue Chart -->
 
-            <p-card>
+        <div class="col-12 xl:col-8">
+
+            <p-card class="chart-card">
+
+                <ng-template pTemplate="header">
+                    <h3>Revenue Trend</h3>
+                </ng-template>
+
+                <div class="chart-container">
+
+                    <p-chart type="line" [data]="revenueChartData" [options]="revenueChartOptions">
+                    </p-chart>
+
+                </div>
+
+            </p-card>
+
+        </div>
+
+        <!-- Task Status -->
+
+        <div class="col-12 xl:col-4">
+
+            <p-card class="chart-card">
+
+                <ng-template pTemplate="header">
+                    <h3>Task Status</h3>
+                </ng-template>
+
+                <div class="chart-container">
+
+                    <p-chart type="doughnut" [data]="taskChartData" [options]="taskChartOptions">
+                    </p-chart>
+
+                </div>
+
+            </p-card>
+
+        </div>
+
+        <!-- Priority Tasks -->
+
+        <div class="col-12 xl:col-8">
+
+            <p-card class="table-card">
 
                 <ng-template pTemplate="header">
                     <h3>Priority Tasks</h3>
                 </ng-template>
 
-                <p-table
-                    [value]="priorityTasks"
-                    [loading]="loading"
-                    [paginator]="true"
-                    [rows]="5"
-                    [rowsPerPageOptions]="[5,10,20]"
-                    responsiveLayout="scroll"
-                    showCurrentPageReport="true"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} tasks">
+                <p-table [value]="priorityTasks" [paginator]="false" responsiveLayout="stack" breakpoint="960px">
 
                     <ng-template pTemplate="header">
+
                         <tr>
-                            <th>Order</th>
+
                             <th>Customer</th>
                             <th>Task</th>
-                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Due</th>
                             <th>Amount</th>
+
                         </tr>
+
                     </ng-template>
 
                     <ng-template pTemplate="body" let-t>
+
                         <tr>
-                            <td>{{t.orderNo}}</td>
+
                             <td>{{t.customer}}</td>
+
                             <td>{{t.task}}</td>
+
                             <td>
-                                <p-tag [value]="t.status" [severity]="getSeverity(t.status)"></p-tag>
+                                <p-tag [value]="t.priority" [severity]="getPrioritySeverity(t.priority)">
+                                </p-tag>
                             </td>
-                            <td>₹{{t.amount|number:'1.2-2'}}</td>
+
+                            <td>{{t.dueDate | date:'dd MMM'}}</td>
+
+                            <td>₹{{t.amount | number}}</td>
+
                         </tr>
+
                     </ng-template>
 
                     <ng-template pTemplate="emptymessage">
+
                         <tr>
-                            <td colspan="5" class="text-center">No priority tasks found.</td>
+
+                            <td colspan="5" class="text-center">
+                                No priority tasks found.
+                            </td>
+
                         </tr>
+
                     </ng-template>
 
                 </p-table>
@@ -109,109 +155,57 @@
 
         </div>
 
-        <div class="col-12 xl:col-6">
+        <!-- Pending Payments -->
 
-            <p-card>
+        <div class="col-12 xl:col-4">
+
+            <p-card class="table-card">
 
                 <ng-template pTemplate="header">
-                    <h3>Recent Payments</h3>
+                    <h3>Pending Payments</h3>
                 </ng-template>
 
-                <p-table
-                    [value]="pendingPayments"
-                    [loading]="loading"
-                    [paginator]="true"
-                    [rows]="5"
-                    [rowsPerPageOptions]="[5,10,20]"
-                    responsiveLayout="scroll"
-                    showCurrentPageReport="true"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} payments">
+                <p-table [value]="pendingPayments" [paginator]="false" responsiveLayout="stack" breakpoint="960px">
 
                     <ng-template pTemplate="header">
+
                         <tr>
+
                             <th>Customer</th>
+                            <th>Due</th>
                             <th>Amount</th>
-                            <th>Mode</th>
-                            <th>Status</th>
-                            <th>Date</th>
+
                         </tr>
+
                     </ng-template>
 
                     <ng-template pTemplate="body" let-p>
+
                         <tr>
+
                             <td>{{p.customer}}</td>
-                            <td>₹{{p.amountPaid|number:'1.2-2'}}</td>
-                            <td>{{p.paymentMode}}</td>
-                            <td><p-tag [value]="p.paymentStatus" severity="success"></p-tag></td>
-                            <td>{{p.paymentDate|date:'dd MMM yyyy'}}</td>
+
+                            <td>{{p.dueDate | date:'dd MMM'}}</td>
+
+                            <td>₹{{p.balance | number}}</td>
+
                         </tr>
+
                     </ng-template>
 
                     <ng-template pTemplate="emptymessage">
+
                         <tr>
-                            <td colspan="5" class="text-center">No payments found.</td>
+
+                            <td colspan="3" class="text-center">
+                                No pending payments.
+                            </td>
+
                         </tr>
+
                     </ng-template>
 
                 </p-table>
-
-            </p-card>
-
-        </div>
-
-        <div class="col-12">
-
-            <p-card>
-
-                <div class="analytics">
-
-                    <div class="chart">
-
-                        <div class="title">
-
-                            <h3>Revenue</h3>
-
-                            <p-selectButton
-                                [(ngModel)]="period"
-                                [options]="periods"
-                                optionLabel="label"
-                                optionValue="value"
-                                (ngModelChange)="loadDashboard()">
-                            </p-selectButton>
-
-                        </div>
-
-                        <div *ngIf="loading" class="flex justify-content-center align-items-center p-6">
-                            <i class="pi pi-spin pi-spinner" style="font-size:2rem"></i>
-                        </div>
-
-                        <p-chart
-                            *ngIf="!loading"
-                            type="line"
-                            [data]="revenueChartData"
-                            [options]="revenueChartOptions">
-                        </p-chart>
-
-                    </div>
-
-                    <div class="chart">
-
-                        <h3>Task Status</h3>
-
-                        <div *ngIf="loading" class="flex justify-content-center align-items-center p-6">
-                            <i class="pi pi-spin pi-spinner" style="font-size:2rem"></i>
-                        </div>
-
-                        <p-chart
-                            *ngIf="!loading"
-                            type="doughnut"
-                            [data]="taskChartData"
-                            [options]="taskChartOptions">
-                        </p-chart>
-
-                    </div>
-
-                </div>
 
             </p-card>
 

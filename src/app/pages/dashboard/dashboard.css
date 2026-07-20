@@ -1,164 +1,243 @@
-.dashboard{padding:1.25rem}
-
-.head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}
-.head h2{margin:0;font-size:1.75rem;font-weight:700}
-.head small{color:#6b7280;font-size:.9rem}
-
-.actions{display:flex;align-items:center;gap:.75rem}
-
-:host ::ng-deep .grid{margin-top:.25rem}
-:host ::ng-deep .grid>[class*=col]{padding:.55rem}
-
-:host ::ng-deep .p-card{
-height:100%;
-border-radius:14px;
-box-shadow:0 2px 10px rgba(0,0,0,.05);
+.dashboard{
+    padding:1.5rem;
+    max-width:100%;
+    overflow-x:hidden;
 }
 
-:host ::ng-deep .p-card-body{
-height:100%;
-padding:1rem;
-display:flex;
-flex-direction:column;
-justify-content:center;
+/* ================= HEADER ================= */
+
+.dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    margin-bottom:1.5rem;
+    flex-wrap:wrap;
 }
 
-.card{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:1rem;
-min-height:82px;
+.dashboard-header h2{
+    margin:0;
+    font-size:1.8rem;
+    font-weight:700;
 }
 
-.content{
-flex:1;
-min-width:0;
+.dashboard-header .welcome{
+    color:#6b7280;
+    font-size:.95rem;
+    display:block;
+    margin-top:.25rem;
 }
 
-.card span{
-display:block;
-font-size:.8rem;
-font-weight:600;
-color:#6b7280;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-}
-
-.card h2{
-margin:.35rem 0 0;
-font-size:1.6rem;
-font-weight:700;
-line-height:1.1;
-word-break:break-word;
-}
-
-.icon{
-width:48px;
-height:48px;
-border-radius:12px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(59,130,246,.08);
-flex-shrink:0;
-}
-
-.icon i{
-font-size:1.35rem;
-color:var(--primary-color);
-}
-
-.analytics{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:1.25rem;
-}
-
-.chart{
-height:360px;
-}
-
-.title{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:1rem;
-}
-
-:host ::ng-deep .p-table{
-font-size:.9rem;
-}
-
-:host ::ng-deep .p-chart{
-height:100%!important;
-}
-
-@media(max-width:1200px){
-.analytics{grid-template-columns:1fr}
-}
-
-@media(max-width:991px){
-.dashboard{padding:1rem}
-.chart{height:320px}
-}
-
-@media(max-width:768px){
-.head{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.actions{
-width:100%;
-justify-content:space-between;
-flex-wrap:wrap;
-}
-
-.card{
-min-height:76px;
-}
-
-.card h2{
-font-size:1.35rem;
-}
-
-.icon{
-width:42px;
-height:42px;
-}
-
-.icon i{
-font-size:1.2rem;
-}
-
-.chart{
-height:280px;
-}
-
-.title{
-flex-direction:column;
-align-items:flex-start;
-gap:.75rem;
-}
-}
-
-@media(max-width:480px){
-.actions>*{
-width:100%;
-}
+/* Compact Week / Month / Year */
 
 :host ::ng-deep .p-selectbutton{
-width:100%;
-display:flex;
+    display:flex;
 }
 
 :host ::ng-deep .p-selectbutton .p-button{
-flex:1;
+    height:36px;
+    min-width:90px;
+    font-size:.85rem;
+    padding:.5rem 1rem;
 }
 
-.chart{
-height:240px;
+/* ================= GRID ================= */
+
+:host ::ng-deep .grid{
+    margin:0;
 }
+
+:host ::ng-deep .grid>[class*="col"]{
+    padding:.65rem;
+    min-width:0;
+}
+
+/* 5 KPI Cards */
+
+@media(min-width:1200px){
+
+.xl\:col-2-4{
+    flex:0 0 20%;
+    max-width:20%;
+}
+
+}
+
+/* ================= CARD ================= */
+
+:host ::ng-deep .p-card{
+    height:100%;
+    border-radius:14px;
+    border:none;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+
+:host ::ng-deep .p-card-body{
+    padding:1rem;
+}
+
+:host ::ng-deep .p-card-content{
+    padding:0;
+}
+
+/* ================= KPI ================= */
+
+.kpi{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    min-height:92px;
+}
+
+.kpi small{
+    display:block;
+    color:#6b7280;
+    font-weight:600;
+    font-size:.85rem;
+    margin-bottom:.35rem;
+}
+
+.kpi h2{
+    margin:0;
+    font-size:1.75rem;
+    font-weight:700;
+    line-height:1.1;
+}
+
+.kpi i{
+    width:52px;
+    height:52px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(59,130,246,.10);
+    color:var(--primary-color);
+    font-size:1.4rem;
+}
+
+/* ================= CHARTS ================= */
+
+.chart-card{
+    height:340px;
+}
+
+:host ::ng-deep .p-chart{
+    width:100% !important;
+    height:280px !important;
+}
+
+/* ================= TABLE ================= */
+
+:host ::ng-deep .p-table{
+    font-size:.9rem;
+}
+
+:host ::ng-deep .p-datatable-wrapper{
+    overflow:auto;
+}
+
+:host ::ng-deep .p-datatable table{
+    width:100%;
+}
+
+:host ::ng-deep th{
+    white-space:nowrap;
+}
+
+:host ::ng-deep td{
+    white-space:nowrap;
+}
+
+/* Equal height bottom cards */
+
+.table-card{
+    height:360px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1200px){
+
+.dashboard-header{
+    align-items:flex-start;
+}
+
+.chart-card,
+.table-card{
+    height:auto;
+}
+
+}
+
+@media(max-width:991px){
+
+.dashboard{
+    padding:1rem;
+}
+
+.kpi{
+    min-height:84px;
+}
+
+.kpi h2{
+    font-size:1.5rem;
+}
+
+}
+
+@media(max-width:768px){
+
+.dashboard-header{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+:host ::ng-deep .p-selectbutton{
+    width:100%;
+}
+
+:host ::ng-deep .p-selectbutton .p-button{
+    flex:1;
+}
+
+.kpi{
+    min-height:76px;
+}
+
+.kpi h2{
+    font-size:1.35rem;
+}
+
+.kpi i{
+    width:44px;
+    height:44px;
+    font-size:1.2rem;
+}
+
+.chart-card,
+.table-card{
+    height:auto;
+}
+
+:host ::ng-deep .p-chart{
+    height:240px !important;
+}
+
+}
+
+@media(max-width:480px){
+
+.dashboard{
+    padding:.75rem;
+}
+
+:host ::ng-deep .grid>[class*="col"]{
+    padding:.45rem;
+}
+
+.kpi h2{
+    font-size:1.25rem;
+}
+
 }
