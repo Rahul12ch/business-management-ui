@@ -1,6 +1,5 @@
 <div class="dashboard">
 
-    <!-- Header -->
     <div class="dashboard-header">
         <div>
             <h2>Dashboard</h2>
@@ -33,40 +32,34 @@
             ]">
 
             <p-card class="kpi-card">
-
                 <div class="kpi">
-
                     <div>
                         <small>{{ c.t }}</small>
                         <h2>{{ c.v }}</h2>
                     </div>
 
                     <i class="pi {{ c.i }}"></i>
-
                 </div>
-
             </p-card>
 
         </div>
 
-        <!-- Revenue Chart -->
+        <!-- Revenue -->
 
         <div class="col-12 xl:col-8">
 
             <p-card class="chart-card">
 
-                <div class="card-title">
+                <ng-template #title>
                     Revenue Trend
-                </div>
+                </ng-template>
 
                 <div class="chart-container">
-
                     <p-chart
                         type="line"
                         [data]="revenueChartData"
                         [options]="revenueChartOptions">
                     </p-chart>
-
                 </div>
 
             </p-card>
@@ -79,18 +72,16 @@
 
             <p-card class="chart-card">
 
-                <div class="card-title">
+                <ng-template #title>
                     Task Status
-                </div>
+                </ng-template>
 
                 <div class="chart-container">
-
                     <p-chart
                         type="doughnut"
                         [data]="taskChartData"
                         [options]="taskChartOptions">
                     </p-chart>
-
                 </div>
 
             </p-card>
@@ -103,9 +94,9 @@
 
             <p-card class="table-card">
 
-                <div class="card-title">
+                <ng-template #title>
                     Priority Tasks
-                </div>
+                </ng-template>
 
                 <p-table
                     [value]="priorityTasks"
@@ -114,56 +105,36 @@
                     styleClass="dashboard-table">
 
                     <ng-template pTemplate="header">
-
                         <tr>
-
                             <th>Customer</th>
                             <th>Task</th>
                             <th>Priority</th>
                             <th>Due</th>
                             <th>Amount</th>
-
                         </tr>
-
                     </ng-template>
 
-                    <ng-template
-                        pTemplate="body"
-                        let-t>
-
+                    <ng-template pTemplate="body" let-t>
                         <tr>
-
                             <td>{{ t.customer }}</td>
-
                             <td>{{ t.task }}</td>
-
                             <td>
-
                                 <p-tag
                                     [value]="t.priority"
                                     [severity]="getPrioritySeverity(t.priority)">
                                 </p-tag>
-
                             </td>
-
                             <td>{{ t.dueDate | date:'dd MMM' }}</td>
-
                             <td>₹{{ t.amount | number }}</td>
-
                         </tr>
-
                     </ng-template>
 
                     <ng-template pTemplate="emptymessage">
-
                         <tr>
-
                             <td colspan="5" class="text-center">
                                 No priority tasks found.
                             </td>
-
                         </tr>
-
                     </ng-template>
 
                 </p-table>
@@ -178,9 +149,9 @@
 
             <p-card class="table-card">
 
-                <div class="card-title">
+                <ng-template #title>
                     Pending Payments
-                </div>
+                </ng-template>
 
                 <p-table
                     [value]="pendingPayments"
@@ -189,43 +160,27 @@
                     styleClass="dashboard-table">
 
                     <ng-template pTemplate="header">
-
                         <tr>
-
                             <th>Customer</th>
                             <th>Due</th>
                             <th>Amount</th>
-
                         </tr>
-
                     </ng-template>
 
-                    <ng-template
-                        pTemplate="body"
-                        let-p>
-
+                    <ng-template pTemplate="body" let-p>
                         <tr>
-
                             <td>{{ p.customer }}</td>
-
                             <td>{{ p.dueDate | date:'dd MMM' }}</td>
-
                             <td>₹{{ p.balance | number }}</td>
-
                         </tr>
-
                     </ng-template>
 
                     <ng-template pTemplate="emptymessage">
-
                         <tr>
-
                             <td colspan="3" class="text-center">
                                 No pending payments.
                             </td>
-
                         </tr>
-
                     </ng-template>
 
                 </p-table>
