@@ -5,24 +5,31 @@ import { Navbar } from '../navbar/navbar';
 import { Sidebar } from '../sidebar/sidebar';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-layout',
   standalone: true,
   imports: [RouterOutlet, Navbar, Sidebar],
-  templateUrl: './dashboard.html',
-  styleUrls: ['./dashboard.css']
+  templateUrl: './layout.html',
+  styleUrls: ['./layout.css']
 })
-export class DashboardComponent implements OnInit {
+export class LayoutComponent implements OnInit {
 
   isMobile = window.innerWidth <= 768;
   sidebarCollapsed = this.isMobile;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  ngOnInit() { this.router.events
+  ngOnInit() {
+    this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => { if (this.isMobile) {
-          this.sidebarCollapsed = true;}});
+      .subscribe(() => { if (this.isMobile) { this.sidebarCollapsed = true;
+        }});
   }
-  toggleSidebar() { this.sidebarCollapsed = !this.sidebarCollapsed; }
-  closeSidebar() { this.sidebarCollapsed = true; }
+
+  toggleSidebar() {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
+  }
+
+  closeSidebar() {
+    this.sidebarCollapsed = true;
+  }
 }

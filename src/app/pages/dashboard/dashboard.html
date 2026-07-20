@@ -1,0 +1,160 @@
+<div class="dashboard">
+
+    <div class="head">
+        <div>
+            <h2>Dashboard</h2>
+            <small>Welcome back Rahul 👋</small>
+        </div>
+
+        <p-selectButton [(ngModel)]="period" [options]="periods" optionLabel="label" optionValue="value">
+        </p-selectButton>
+
+    </div>
+
+    <div class="grid">
+
+        <div class="col-12 md:col-6 xl:col-3" *ngFor="let c of [
+{t:'Total Tasks',v:summary.totalTasks,i:'pi-briefcase'},
+{t:'Pending',v:summary.pendingTasks,i:'pi-clock'},
+{t:'Completed',v:summary.completedTasks,i:'pi-check-circle'},
+{t:'Revenue',v:'₹'+(summary.revenue|number),i:'pi-wallet'}
+]">
+
+            <p-card>
+                <div class="card">
+                    <div>
+                        <span>{{c.t}}</span>
+                        <h2>{{c.v}}</h2>
+                    </div>
+                    <i class="pi {{c.i}}"></i>
+                </div>
+            </p-card>
+
+        </div>
+
+        <div class="col-12 xl:col-6">
+
+            <p-card>
+
+                <ng-template pTemplate="header">
+                    <h3>Priority Tasks</h3>
+                </ng-template>
+
+                <p-table [value]="priorityTasks" [rows]="5" [paginator]="true">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Priority</th>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-t>
+
+                        <tr>
+
+                            <td>{{t.customer}}</td>
+
+                            <td>₹{{t.amount}}</td>
+
+                            <td>
+                                <p-tag [value]="t.priority" [severity]="getSeverity(t.priority)">
+                                </p-tag>
+                            </td>
+
+                        </tr>
+
+                    </ng-template>
+
+                </p-table>
+
+            </p-card>
+
+        </div>
+
+        <div class="col-12 xl:col-6">
+
+            <p-card>
+
+                <ng-template pTemplate="header">
+                    <h3>Pending Payments</h3>
+                </ng-template>
+
+                <p-table [value]="pendingPayments" [rows]="5" [paginator]="true">
+
+                    <ng-template pTemplate="header">
+
+                        <tr>
+
+                            <th>Customer</th>
+
+                            <th>Amount</th>
+
+                            <th>Late</th>
+
+                        </tr>
+
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-p>
+
+                        <tr>
+
+                            <td>{{p.customer}}</td>
+
+                            <td>₹{{p.amount}}</td>
+
+                            <td>{{p.late}}</td>
+
+                        </tr>
+
+                    </ng-template>
+
+                </p-table>
+
+            </p-card>
+
+        </div>
+
+        <div class="col-12">
+
+            <p-card>
+
+                <div class="analytics">
+
+                    <div class="chart">
+
+                        <div class="title">
+
+                            <h3>Revenue</h3>
+
+                            <p-selectButton [(ngModel)]="period" [options]="periods" optionLabel="label"
+                                optionValue="value">
+                            </p-selectButton>
+
+                        </div>
+
+                        <p-chart type="line" [data]="revenueChartData" [options]="revenueChartOptions">
+                        </p-chart>
+
+                    </div>
+
+                    <div class="chart">
+
+                        <h3>Task Completion</h3>
+
+                        <p-chart type="doughnut" [data]="taskChartData" [options]="taskChartOptions">
+                        </p-chart>
+
+                    </div>
+
+                </div>
+
+            </p-card>
+
+        </div>
+
+    </div>
+
+</div>
