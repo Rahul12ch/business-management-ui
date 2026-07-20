@@ -2,45 +2,46 @@
 
     <!-- Header -->
     <div class="dashboard-header">
-
         <div>
             <h2>Dashboard</h2>
-            <span class="welcome">Welcome back {{ username }} 👋</span>
+            <span class="welcome">
+                Welcome back {{ username }} 👋
+            </span>
         </div>
 
-        <p-selectButton [(ngModel)]="period" [options]="periods" optionLabel="label" optionValue="value"
+        <p-selectButton
+            [(ngModel)]="period"
+            [options]="periods"
+            optionLabel="label"
+            optionValue="value"
             (ngModelChange)="loadDashboard()">
         </p-selectButton>
-
     </div>
 
     <div class="grid">
 
         <!-- KPI Cards -->
 
-        <div class="col-12 md:col-6 xl:col-2-4" *ngFor="let c of [
-
-            {t:'Customers',v:summary.totalCustomers,i:'pi-users'},
-            {t:'Tasks',v:summary.totalTasks,i:'pi-briefcase'},
-            {t:'Pending',v:summary.pendingTasks,i:'pi-clock'},
-            {t:'Completed',v:summary.completedTasks,i:'pi-check-circle'},
-            {t:'Revenue',v:'₹'+(summary.totalRevenue|number),i:'pi-wallet'}
-
-        ]">
+        <div
+            class="col-12 md:col-6 xl:col-2-4"
+            *ngFor="let c of [
+                {t:'Customers',v:summary.totalCustomers,i:'pi-users'},
+                {t:'Tasks',v:summary.totalTasks,i:'pi-briefcase'},
+                {t:'Pending',v:summary.pendingTasks,i:'pi-clock'},
+                {t:'Completed',v:summary.completedTasks,i:'pi-check-circle'},
+                {t:'Revenue',v:'₹'+(summary.totalRevenue|number),i:'pi-wallet'}
+            ]">
 
             <p-card class="kpi-card">
 
                 <div class="kpi">
 
                     <div>
-
-                        <small>{{c.t}}</small>
-
-                        <h2>{{c.v}}</h2>
-
+                        <small>{{ c.t }}</small>
+                        <h2>{{ c.v }}</h2>
                     </div>
 
-                    <i class="pi {{c.i}}"></i>
+                    <i class="pi {{ c.i }}"></i>
 
                 </div>
 
@@ -54,13 +55,16 @@
 
             <p-card class="chart-card">
 
-                <ng-template pTemplate="header">
-                    <h3>Revenue Trend</h3>
-                </ng-template>
+                <div class="card-title">
+                    Revenue Trend
+                </div>
 
                 <div class="chart-container">
 
-                    <p-chart type="line" [data]="revenueChartData" [options]="revenueChartOptions">
+                    <p-chart
+                        type="line"
+                        [data]="revenueChartData"
+                        [options]="revenueChartOptions">
                     </p-chart>
 
                 </div>
@@ -75,13 +79,16 @@
 
             <p-card class="chart-card">
 
-                <ng-template pTemplate="header">
-                    <h3>Task Status</h3>
-                </ng-template>
+                <div class="card-title">
+                    Task Status
+                </div>
 
                 <div class="chart-container">
 
-                    <p-chart type="doughnut" [data]="taskChartData" [options]="taskChartOptions">
+                    <p-chart
+                        type="doughnut"
+                        [data]="taskChartData"
+                        [options]="taskChartOptions">
                     </p-chart>
 
                 </div>
@@ -96,11 +103,15 @@
 
             <p-card class="table-card">
 
-                <ng-template pTemplate="header">
-                    <h3>Priority Tasks</h3>
-                </ng-template>
+                <div class="card-title">
+                    Priority Tasks
+                </div>
 
-                <p-table [value]="priorityTasks" [paginator]="false" responsiveLayout="stack" breakpoint="960px">
+                <p-table
+                    [value]="priorityTasks"
+                    [paginator]="false"
+                    responsiveLayout="scroll"
+                    styleClass="dashboard-table">
 
                     <ng-template pTemplate="header">
 
@@ -116,22 +127,28 @@
 
                     </ng-template>
 
-                    <ng-template pTemplate="body" let-t>
+                    <ng-template
+                        pTemplate="body"
+                        let-t>
 
                         <tr>
 
-                            <td>{{t.customer}}</td>
+                            <td>{{ t.customer }}</td>
 
-                            <td>{{t.task}}</td>
+                            <td>{{ t.task }}</td>
 
                             <td>
-                                <p-tag [value]="t.priority" [severity]="getPrioritySeverity(t.priority)">
+
+                                <p-tag
+                                    [value]="t.priority"
+                                    [severity]="getPrioritySeverity(t.priority)">
                                 </p-tag>
+
                             </td>
 
-                            <td>{{t.dueDate | date:'dd MMM'}}</td>
+                            <td>{{ t.dueDate | date:'dd MMM' }}</td>
 
-                            <td>₹{{t.amount | number}}</td>
+                            <td>₹{{ t.amount | number }}</td>
 
                         </tr>
 
@@ -161,11 +178,15 @@
 
             <p-card class="table-card">
 
-                <ng-template pTemplate="header">
-                    <h3>Pending Payments</h3>
-                </ng-template>
+                <div class="card-title">
+                    Pending Payments
+                </div>
 
-                <p-table [value]="pendingPayments" [paginator]="false" responsiveLayout="stack" breakpoint="960px">
+                <p-table
+                    [value]="pendingPayments"
+                    [paginator]="false"
+                    responsiveLayout="scroll"
+                    styleClass="dashboard-table">
 
                     <ng-template pTemplate="header">
 
@@ -179,15 +200,17 @@
 
                     </ng-template>
 
-                    <ng-template pTemplate="body" let-p>
+                    <ng-template
+                        pTemplate="body"
+                        let-p>
 
                         <tr>
 
-                            <td>{{p.customer}}</td>
+                            <td>{{ p.customer }}</td>
 
-                            <td>{{p.dueDate | date:'dd MMM'}}</td>
+                            <td>{{ p.dueDate | date:'dd MMM' }}</td>
 
-                            <td>₹{{p.balance | number}}</td>
+                            <td>₹{{ p.balance | number }}</td>
 
                         </tr>
 

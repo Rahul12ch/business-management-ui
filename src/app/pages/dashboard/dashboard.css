@@ -1,243 +1,101 @@
-.dashboard{
-    padding:1.5rem;
-    max-width:100%;
-    overflow-x:hidden;
-}
+.dashboard{ padding:1.5rem; max-width:100%; overflow-x:hidden; }
 
-/* ================= HEADER ================= */
+.dashboard-header{ display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+.dashboard-header h2{ margin:0; font-size:1.8rem; font-weight:700; }
+.dashboard-header .welcome{ color:#6b7280; font-size:.95rem; display:block; margin-top:.25rem; }
 
-.dashboard-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:1rem;
-    margin-bottom:1.5rem;
-    flex-wrap:wrap;
-}
+:host ::ng-deep .p-selectbutton{ display:flex; }
+:host ::ng-deep .p-selectbutton .p-button{ height:36px; min-width:90px; font-size:.85rem; padding:.5rem 1rem; }
 
-.dashboard-header h2{
-    margin:0;
-    font-size:1.8rem;
-    font-weight:700;
-}
-
-.dashboard-header .welcome{
-    color:#6b7280;
-    font-size:.95rem;
-    display:block;
-    margin-top:.25rem;
-}
-
-/* Compact Week / Month / Year */
-
-:host ::ng-deep .p-selectbutton{
-    display:flex;
-}
-
-:host ::ng-deep .p-selectbutton .p-button{
-    height:36px;
-    min-width:90px;
-    font-size:.85rem;
-    padding:.5rem 1rem;
-}
-
-/* ================= GRID ================= */
-
-:host ::ng-deep .grid{
-    margin:0;
-}
-
-:host ::ng-deep .grid>[class*="col"]{
-    padding:.65rem;
-    min-width:0;
-}
-
-/* 5 KPI Cards */
+:host ::ng-deep .grid{ margin:0; }
+:host ::ng-deep .grid>[class*="col"]{ padding:.65rem; min-width:0; }
 
 @media(min-width:1200px){
-
-.xl\:col-2-4{
-    flex:0 0 20%;
-    max-width:20%;
+.xl\:col-2-4{ flex:0 0 20%; max-width:20%; }
 }
 
-}
+:host ::ng-deep .p-card{ height:100%; border-radius:14px; border:none; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+:host ::ng-deep .p-card-body{ padding:1.25rem; }
+:host ::ng-deep .p-card-content{ padding:0; }
 
-/* ================= CARD ================= */
+.card-title{ font-size:1.2rem; font-weight:700; color:var(--text-color); margin-bottom:1rem; line-height:1.2; }
 
-:host ::ng-deep .p-card{
-    height:100%;
-    border-radius:14px;
-    border:none;
-    box-shadow:0 2px 12px rgba(0,0,0,.06);
-}
+.kpi{ display:flex; justify-content:space-between; align-items:center; min-height:92px; }
+.kpi small{ display:block; color:#6b7280; font-weight:600; font-size:.85rem; margin-bottom:.35rem; }
+.kpi h2{ margin:0; font-size:1.75rem; font-weight:700; line-height:1.1; }
+.kpi i{ width:52px; height:52px; border-radius:12px; display:flex; justify-content:center; align-items:center; background:rgba(59,130,246,.10); color:var(--primary-color); font-size:1.4rem; }
 
-:host ::ng-deep .p-card-body{
-    padding:1rem;
-}
+.chart-card,
+.table-card{ height:100%; }
 
-:host ::ng-deep .p-card-content{
-    padding:0;
-}
+.chart-container{ height:280px; }
 
-/* ================= KPI ================= */
+:host ::ng-deep .p-chart{ width:100% !important; height:100% !important; }
 
-.kpi{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    min-height:92px;
-}
+.dashboard-table{ width:100%; }
 
-.kpi small{
-    display:block;
-    color:#6b7280;
-    font-weight:600;
-    font-size:.85rem;
-    margin-bottom:.35rem;
-}
+:host ::ng-deep .dashboard-table .p-datatable-wrapper{ overflow-x:auto; }
 
-.kpi h2{
-    margin:0;
-    font-size:1.75rem;
-    font-weight:700;
-    line-height:1.1;
-}
+:host ::ng-deep .dashboard-table table{ width:100%; min-width:650px; }
 
-.kpi i{
-    width:52px;
-    height:52px;
-    border-radius:12px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:rgba(59,130,246,.10);
-    color:var(--primary-color);
-    font-size:1.4rem;
-}
+:host ::ng-deep .dashboard-table th{ white-space:nowrap; font-weight:600; }
 
-/* ================= CHARTS ================= */
+:host ::ng-deep .dashboard-table td{ white-space:nowrap; padding:.85rem 1rem; }
 
-.chart-card{
-    height:340px;
-}
-
-:host ::ng-deep .p-chart{
-    width:100% !important;
-    height:280px !important;
-}
-
-/* ================= TABLE ================= */
-
-:host ::ng-deep .p-table{
-    font-size:.9rem;
-}
-
-:host ::ng-deep .p-datatable-wrapper{
-    overflow:auto;
-}
-
-:host ::ng-deep .p-datatable table{
-    width:100%;
-}
-
-:host ::ng-deep th{
-    white-space:nowrap;
-}
-
-:host ::ng-deep td{
-    white-space:nowrap;
-}
-
-/* Equal height bottom cards */
-
-.table-card{
-    height:360px;
-}
-
-/* ================= RESPONSIVE ================= */
+.table-card{ min-height:360px; }
 
 @media(max-width:1200px){
 
-.dashboard-header{
-    align-items:flex-start;
-}
+.dashboard-header{ align-items:flex-start; }
 
 .chart-card,
-.table-card{
-    height:auto;
-}
+.table-card{ min-height:unset; height:auto; }
+
+.chart-container{ height:300px; }
 
 }
 
 @media(max-width:991px){
 
-.dashboard{
-    padding:1rem;
-}
+.dashboard{ padding:1rem; }
 
-.kpi{
-    min-height:84px;
-}
+.kpi{ min-height:84px; }
 
-.kpi h2{
-    font-size:1.5rem;
-}
+.kpi h2{ font-size:1.5rem; }
 
 }
 
 @media(max-width:768px){
 
-.dashboard-header{
-    flex-direction:column;
-    align-items:flex-start;
-}
+.dashboard-header{ flex-direction:column; align-items:flex-start; }
 
-:host ::ng-deep .p-selectbutton{
-    width:100%;
-}
+:host ::ng-deep .p-selectbutton{ width:100%; }
 
-:host ::ng-deep .p-selectbutton .p-button{
-    flex:1;
-}
+:host ::ng-deep .p-selectbutton .p-button{ flex:1; }
 
-.kpi{
-    min-height:76px;
-}
+.kpi{ min-height:76px; }
 
-.kpi h2{
-    font-size:1.35rem;
-}
+.kpi h2{ font-size:1.35rem; }
 
-.kpi i{
-    width:44px;
-    height:44px;
-    font-size:1.2rem;
-}
+.kpi i{ width:44px; height:44px; font-size:1.2rem; }
 
 .chart-card,
-.table-card{
-    height:auto;
-}
+.table-card{ height:auto; }
 
-:host ::ng-deep .p-chart{
-    height:240px !important;
-}
+.chart-container{ height:240px; }
+
+:host ::ng-deep .dashboard-table table{ min-width:600px; }
 
 }
 
 @media(max-width:480px){
 
-.dashboard{
-    padding:.75rem;
-}
+.dashboard{ padding:.75rem; }
 
-:host ::ng-deep .grid>[class*="col"]{
-    padding:.45rem;
-}
+:host ::ng-deep .grid>[class*="col"]{ padding:.45rem; }
 
-.kpi h2{
-    font-size:1.25rem;
-}
+.kpi h2{ font-size:1.25rem; }
+
+.card-title{ font-size:1.05rem; }
 
 }
