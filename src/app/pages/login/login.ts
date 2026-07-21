@@ -112,7 +112,8 @@ export class LoginComponent {
       },
 
       error: (err) => {
-
+         console.log('ERROR CALLBACK');
+  console.log(err);
         if (err instanceof TimeoutError) {
           this.loginError =
             'Server took too long to respond. Please try again.';
