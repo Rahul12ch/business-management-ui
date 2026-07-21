@@ -41,68 +41,33 @@
 
 @media (max-width:768px){
 
-.profile-container{
-    padding:12px;
-}
+.profile-container{ padding:12px;}
+.profile-card{ padding:16px; border-radius:12px;}
+.profile-body{ display:grid; grid-template-columns:1fr; gap:18px;}
 
-.profile-card{
-    padding:16px;
-    border-radius:12px;
-}
-
-.profile-body{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:18px;
-}
-
-.left-panel{
-    align-items:center;
-    justify-content:center;
-    margin-bottom:6px;
-}
-
+.left-panel{  align-items:center;  justify-content:center;  margin-bottom:6px;}
 .profile-image,
-.avatar{
-    width:110px;
-    height:110px;
-}
+.avatar{  width:110px;  height:110px;}
 
 .change-photo-btn,
-.left-panel .p-button{
-    width:100%;
-    max-width:220px;
-}
-
-.right-panel{
-    gap:14px;
-}
-
-.field-group{
-    width:100%;
-}
+.left-panel .p-button{ width:100%; max-width:220px;}
+.right-panel{ gap:14px;}
+.field-group{  width:100%;}
 
 .field-group input,
-.field-group .p-inputtext{
-    width:100%;
-    height:44px;
-    font-size:.95rem;
-}
+.field-group .p-inputtext{ width:100%; height:44px; font-size:.95rem; }
 
-.password-wrapper{
-    width:100%;
-}
+.password-wrapper{ width:100%; }
 
-.action-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    margin-top:20px;
-}
+.action-buttons{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+.action-buttons .p-button{ width:100%; height:44px; }
 
-.action-buttons .p-button{
-    width:100%;
-    height:44px;
+@media (max-width: 768px) {
+  :host ::ng-deep .p-toast { width: calc(100vw - 24px) !important; max-width: calc(100vw - 24px) !important; left: 12px !important;
+    right: 12px !important; top: 12px !important; transform: none !important; margin: 0 !important; z-index: 9999 !important; }
+  :host ::ng-deep .p-toast-message { width: 100% !important; border-radius: 12px; }
+  :host ::ng-deep .p-toast-message-content { padding: .9rem 1rem !important; }
+  :host ::ng-deep .p-toast-summary { font-size: .95rem; font-weight: 600; }
+  :host ::ng-deep .p-toast-detail { font-size: .85rem; line-height: 1.4; word-break: break-word; }
 }
-
 }
