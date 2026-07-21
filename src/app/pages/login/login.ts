@@ -6,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
-import { timeout, TimeoutError } from 'rxjs';
+import { timeout, TimeoutError, finalize } from 'rxjs';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -25,11 +25,14 @@ import { AuthService } from '../../services/auth';
   styleUrl: './login.css'
 })
 export class LoginComponent {
+
   email = '';
   password = '';
+
   emailError = '';
   passwordError = '';
   loginError = '';
+
   loading = false;
 
   constructor(
@@ -38,18 +41,25 @@ export class LoginComponent {
   ) { }
 
   login(): void {
+
+    if (this.loading) return;
+
     this.emailError = '';
     this.passwordError = '';
     this.loginError = '';
 
     let isValid = true;
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
 
     if (!this.email.trim()) {
       this.emailError = 'Email is required';
       isValid = false;
-    } else if (!emailRegex.test(this.email)) {
+    }
+    else if (!emailRegex.test(this.email.trim())) {
       this.emailError = 'Enter a valid email address';
       isValid = false;
     }
@@ -57,56 +67,70 @@ export class LoginComponent {
     if (!this.password) {
       this.passwordError = 'Password is required';
       isValid = false;
-    } else if (this.password.length < 8) {
+    }
+    else if (this.password.length < 8) {
       this.passwordError = 'Password must be at least 8 characters';
       isValid = false;
-    } else if (!passwordRegex.test(this.password)) {
-      this.passwordError = 'Must contain uppercase, lowercase, number and special character';
+    }
+    else if (!passwordRegex.test(this.password)) {
+      this.passwordError =
+        'Must contain uppercase, lowercase, number and special character';
       isValid = false;
     }
 
     if (!isValid) return;
+
     this.loading = true;
-    this.authService.login({ email: this.email.trim(), passwordHash: this.password })
-    .pipe( timeout(30000)) .subscribe({ next: async (response: any) => {
-  console.log('LOGIN SUCCESS');
-  console.log(response);
 
-  if (!response?.token) {
-    this.loading = false;
-    this.loginError = 'Unexpected response from the server.';
-    return;
-  }
+    this.authService.login({
+      email: this.email.trim(),
+      passwordHash: this.password
+    })
+    .pipe(
+      timeout(30000),
+      finalize(() => this.loading = false)
+    )
+    .subscribe({
 
-  this.authService.saveToken(response.token);
+      next: async (response: any) => {
 
-  console.log('TOKEN SAVED');
+        if (!response?.token) {
+          this.loginError = 'Unexpected response from the server.';
+          return;
+        }
 
-  localStorage.setItem('userId', response.userId);
-  localStorage.setItem('email', response.email);
+        this.authService.saveToken(response.token);
 
-  console.log('BEFORE NAVIGATION');
+        localStorage.setItem('userId', String(response.userId));
+        localStorage.setItem('email', response.email);
 
-  await this.router.navigate(['/dashboard']);
+        const navigated = await this.router.navigate(['/dashboard']);
 
-  console.log('AFTER NAVIGATION');
+        if (!navigated) {
+          this.loginError = 'Unable to open dashboard.';
+        }
+      },
 
-  this.loading = false;
-},
       error: (err) => {
-  this.loading = false;
-  if (err instanceof TimeoutError) {
-    this.loginError = 'Server took too long to respond. Please try again.';
-  }
-  else if (err.status === 401) {
-    this.loginError = err.error?.message ?? 'Invalid email or password.';
-  }
-  else if (err.status === 0) {
-    this.loginError = 'Unable to reach the server. Check your connection.';
-  }
-  else {
-    this.loginError = err.error?.message ?? 'Something went wrong.';
-  }
-}});
+
+        if (err instanceof TimeoutError) {
+          this.loginError =
+            'Server took too long to respond. Please try again.';
+        }
+        else if (err.status === 401) {
+          this.loginError =
+            err.error?.message ?? 'Invalid email or password.';
+        }
+        else if (err.status === 0) {
+          this.loginError =
+            'Unable to reach the server. Please check your internet connection.';
+        }
+        else {
+          this.loginError =
+            err.error?.message ?? 'Something went wrong. Please try again.';
+        }
+      }
+
+    });
   }
 }
