@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -37,8 +37,9 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   login(): void {
 
@@ -51,90 +52,62 @@ export class LoginComponent {
     let isValid = true;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
 
     if (!this.email.trim()) {
-      this.emailError = 'Email is required';
-      isValid = false;
-    }
-    else if (!emailRegex.test(this.email.trim())) {
-      this.emailError = 'Enter a valid email address';
-      isValid = false;
+      this.emailError = 'Email is required'; isValid = false;
+    } else if (!emailRegex.test(this.email.trim())) {
+      this.emailError = 'Enter a valid email address'; isValid = false;
     }
 
     if (!this.password) {
-      this.passwordError = 'Password is required';
-      isValid = false;
-    }
-    else if (this.password.length < 8) {
-      this.passwordError = 'Password must be at least 8 characters';
-      isValid = false;
-    }
-    else if (!passwordRegex.test(this.password)) {
-      this.passwordError =
-        'Must contain uppercase, lowercase, number and special character';
-      isValid = false;
+      this.passwordError = 'Password is required';  isValid = false;
+    } else if (this.password.length < 8) {
+      this.passwordError = 'Password must be at least 8 characters';  isValid = false;
+    } else if (!passwordRegex.test(this.password)) {
+      this.passwordError = 'Must contain uppercase, lowercase, number and special character'; isValid = false;
     }
 
     if (!isValid) return;
-
     this.loading = true;
+    this.cdr.detectChanges();
 
-    this.authService.login({
-      email: this.email.trim(),
-      passwordHash: this.password
+    this.authService.login({ email: this.email.trim(), passwordHash: this.password
     })
-    .pipe(
-  timeout(30000),
-  finalize(() => {
-    this.loading = false;
-    console.log('FINALIZE', this.loading);
-  })
-)
-    .subscribe({
-
-      next: async (response: any) => {
-
+    .pipe( timeout(30000), finalize(() => { this.loading = false;
+        this.cdr.detectChanges();
+      })
+    )
+    .subscribe({ next: (response: any) => {
         if (!response?.token) {
           this.loginError = 'Unexpected response from the server.';
+          this.cdr.detectChanges();
           return;
         }
 
         this.authService.saveToken(response.token);
-
         localStorage.setItem('userId', String(response.userId));
         localStorage.setItem('email', response.email);
-
-        const navigated = await this.router.navigate(['/dashboard']);
-
-        if (!navigated) {
-          this.loginError = 'Unable to open dashboard.';
-        }
+        this.router.navigate(['/dashboard']).then(() => {
+          this.cdr.detectChanges();
+        });
       },
 
       error: (err) => {
-         console.log('ERROR CALLBACK');
-  console.log(err);
         if (err instanceof TimeoutError) {
-          this.loginError =
-            'Server took too long to respond. Please try again.';
+           this.loginError = 'Server took too long to respond. Please try again.';
         }
         else if (err.status === 401) {
-          this.loginError =
-            err.error?.message ?? 'Invalid email or password.';
+          this.loginError =  err.error?.message ?? 'Invalid email or password.';
         }
         else if (err.status === 0) {
-          this.loginError =
-            'Unable to reach the server. Please check your internet connection.';
+          this.loginError = 'Unable to reach the server. Please check your internet connection.';
         }
         else {
-          this.loginError =
-            err.error?.message ?? 'Something went wrong. Please try again.';
+          this.loginError = err.error?.message ?? 'Something went wrong. Please try again.';
         }
+        this.cdr.detectChanges();
       }
-
     });
   }
 }
