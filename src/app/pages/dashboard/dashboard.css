@@ -36,6 +36,19 @@
 :host ::ng-deep .dashboard-table th{ white-space:nowrap; font-weight:600; }
 :host ::ng-deep .dashboard-table td{ white-space:nowrap; padding:.85rem 1rem; }
 
+:host ::ng-deep .pending-table table{ min-width:100% !important; table-layout:fixed; }
+:host ::ng-deep .pending-table th,
+:host ::ng-deep .pending-table td{ padding:.85rem .9rem; white-space:nowrap; }
+
+:host ::ng-deep .pending-table th:nth-child(1),
+:host ::ng-deep .pending-table td:nth-child(1){ width:45%; text-align:left; }
+
+:host ::ng-deep .pending-table th:nth-child(2),
+:host ::ng-deep .pending-table td:nth-child(2){  width:25%;  text-align:center; }
+
+:host ::ng-deep .pending-table th:nth-child(3),
+:host ::ng-deep .pending-table td:nth-child(3){ width:30%; text-align:right; }
+
 .table-card{ min-height:360px; }
 
 @media(max-width:1200px){
@@ -66,6 +79,7 @@
 .chart-container{ height:240px; }
 
 :host ::ng-deep .dashboard-table table{  min-width:600px; }
+:host ::ng-deep .pending-table .p-datatable-table{ min-width:0 !important; }
 }
 
 @media(max-width:480px){

@@ -73,7 +73,7 @@
         <div class="col-12 xl:col-4">
             <p-card class="table-card">
                 <ng-template #title> Pending Payments </ng-template>
-                <p-table [value]="pendingPayments" [paginator]="false" responsiveLayout="scroll" styleClass="dashboard-table">
+                    <p-table [value]="pendingPayments" [paginator]="false" responsiveLayout="scroll" styleClass="dashboard-table pending-table">
                     <ng-template pTemplate="header">
                         <tr>
                         <th>Customer</th> <th>Due</th> <th>Amount</th>
