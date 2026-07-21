@@ -37,7 +37,7 @@ export class LoginComponent {
     private router: Router
   ) { }
 
- login(): void {
+  login(): void {
 
   this.emailError = '';
   this.passwordError = '';
@@ -119,5 +119,5 @@ export class LoginComponent {
     }
 
   });
- }
+  }
 }
