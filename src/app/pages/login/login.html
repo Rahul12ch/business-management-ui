@@ -15,7 +15,14 @@
     </div>
 
     <small class="error login-error" *ngIf="loginError">{{ loginError }}</small>
-    <button pButton type="button" label="Login" icon="pi pi-sign-in" [loading]="loading" [disabled]="loading" (click)="login()"></button>
+    <button
+  type="button"
+  [disabled]="loading"
+  (click)="login()">
+
+  {{ loading ? 'Logging in...' : 'Login' }}
+
+</button>
 
     <p class="link">Don't have an account? <a routerLink="/signup">Sign Up</a></p>
   </p-card>
