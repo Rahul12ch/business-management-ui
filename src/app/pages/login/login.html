@@ -15,7 +15,8 @@
     </div>
 
     <small class="error login-error" *ngIf="loginError">{{ loginError }}</small>
-    <button
+  <p>Loading = {{ loading }}</p>
+  <button
   type="button"
   [disabled]="loading"
   (click)="login()">

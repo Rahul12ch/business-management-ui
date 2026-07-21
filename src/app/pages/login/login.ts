@@ -87,9 +87,12 @@ export class LoginComponent {
       passwordHash: this.password
     })
     .pipe(
-      timeout(30000),
-      finalize(() => this.loading = false)
-    )
+  timeout(30000),
+  finalize(() => {
+    this.loading = false;
+    console.log('FINALIZE', this.loading);
+  })
+)
     .subscribe({
 
       next: async (response: any) => {
