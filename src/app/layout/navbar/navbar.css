@@ -19,7 +19,8 @@
 .mark-read-btn{background:none;border:none;color:#22c55e;font-size:.8rem;font-weight:600;cursor:pointer;margin-left:.5rem}
 .mark-read-btn:hover{text-decoration:underline}
 
-.notification-list{ max-height:380px; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.notification-list{ overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;}
+.notification-list.has-items{ max-height:380px; }
 .notification-item{display:flex;align-items:center;gap:.9rem;padding:1rem;cursor:pointer;transition:.2s;border-bottom:1px solid #f1f5f9}
 .notification-item:hover{background:#f8fafc}
 .notification-icon{width:42px;height:42px;border-radius:12px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -100,7 +101,8 @@ align-items:center;justify-content:center;color:#475569;font-size:1.2rem;transit
 width:auto; max-width:none; max-height:75vh; border-radius:14px; z-index:3000; }
 
 .notification-header{ padding:14px; font-size:.95rem; }
-.notification-list{ max-height:55vh; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.notification-list{ overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.notification-list.has-items{ max-height:55vh; }
 .notification-item{ padding:12px; gap:10px; }
 .notification-icon{ width:40px; height:40px; }
 .notification-title{ font-size:.9rem; }
