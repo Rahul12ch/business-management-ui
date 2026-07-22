@@ -1,8 +1,10 @@
 .page { padding: 1.5rem; background:#f8fafc; min-height: 100vh; }
 .card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+
 .card-header { margin-bottom: 1rem; }
 .card-header h2 { margin: 0; color: #111827; font-size: 1.5rem; font-weight: 700; }
 .toolbar { display: flex; align-items: center; margin-bottom: 1rem; }
+
 :host ::ng-deep .p-iconfield { flex: 1; }
 :host ::ng-deep .p-iconfield .p-inputtext { width: 100%; height: 42px; background: #f9fafb !important; color: #111827 !important; border: 1px solid #e5e7eb !important; border-radius: 8px; font-size: .9rem; }
 :host ::ng-deep .p-iconfield .p-inputtext:focus { box-shadow: none !important; border-color: #22c55e !important; }
@@ -12,18 +14,24 @@
 :host ::ng-deep .p-datatable-thead > tr > th { background: #f9fafb !important; color: #374151 !important; font-weight: 600; font-size: .85rem; padding: .85rem 1rem; border-bottom: 1px solid #e5e7eb; }
 :host ::ng-deep .p-datatable-tbody > tr > td { background: #ffffff !important; color: #111827 !important; padding: .85rem 1rem; font-size: .9rem; border-bottom: 1px solid #f3f4f6; }
 :host ::ng-deep .p-datatable-tbody > tr:hover > td { background: #f9fafb !important; }
+
 .empty-state { text-align: center !important; padding: 4rem 1rem !important; }
 .empty-icon { font-size: 2.5rem; color: #d1d5db; display: block; margin-bottom: .75rem; }
 .empty-title { font-size: 1rem; font-weight: 600; color: #374151; }
 .empty-subtitle { color: #9ca3af; margin-top: .4rem; font-size: .875rem; }
+
 :host ::ng-deep .p-tag { border-radius: 999px; font-size: .75rem; font-weight: 600; }
+
 .actions { display: flex; align-items: center; gap: .15rem; }
+
 :host ::ng-deep .actions .p-button { width: 2rem; height: 2rem; border-radius: 50%; }
 :host ::ng-deep .actions .p-button:hover { background: #f3f4f6; }
 :host ::ng-deep .actions .p-button-secondary .p-button-icon { color: #6b7280 !important; }
 :host ::ng-deep .actions .p-button-info .p-button-icon { color: #0ea5e9 !important; }
 :host ::ng-deep .actions .p-button-danger .p-button-icon { color: #ef4444 !important; }
+
 .table-footer { display: flex; justify-content: flex-end; margin-top: .75rem; }
+
 :host ::ng-deep .p-paginator { background: transparent; border: none; padding: 0; }
 :host ::ng-deep .p-paginator-page.p-highlight { background: #22c55e !important; color: #ffffff !important; border-radius: 50%; }
 :host ::ng-deep .p-dialog { border-radius: 16px !important; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.15) !important; }
@@ -40,12 +48,14 @@
 :host ::ng-deep .p-confirmdialog .p-confirm-dialog-icon{ font-size:2rem; color:#f59e0b; margin-top:.2rem; flex-shrink:0;}
 :host ::ng-deep .p-confirmdialog .p-dialog-footer{ border-top:1px solid #e5e7eb; padding:1rem 1.5rem !important; display:flex; justify-content:flex-end; gap:.75rem;}
 :host ::ng-deep .p-confirmdialog .p-button{ min-width:90px;}
+
 .dialog-body { padding: 1rem; }
 .dialog-section-title { font-size: .63rem; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: .4rem; margin-top: .85rem; display: flex; align-items: center; gap: .5rem; }
 .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; margin-bottom: .1rem; }
 .detail-item { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: .4rem .75rem; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: .5rem; }
 .detail-label { font-size: .65rem; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
 .detail-value { font-size: .82rem; font-weight: 600; color: #111827; text-align: right; }
+
 .work-table-wrapper { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
 .work-table { width: 100%; border-collapse: collapse; }
 .work-table thead tr { background: #f9fafb; }
@@ -55,44 +65,57 @@
 .work-table tbody tr:last-child { border-bottom: none; }
 .work-table tbody td { padding: .4rem .75rem; font-size: .82rem; color: #111827; }
 .work-table tbody td.text-right { text-align: right; }
+
 .no-work-items { text-align: center; color: #9ca3af; padding: 1rem; font-size: .82rem; }
+
 .text-right { text-align: right; }
+
 .work-table tfoot tr { border-top: 1px solid #e5e7eb; }
 .work-table tfoot td { padding: .38rem .75rem; font-size: .8rem; }
+
 .subtotal-row { background: #fafafa; }
 .subtotal-row .foot-label, .gst-row .foot-label { color: #6b7280; font-weight: 500; }
 .subtotal-row .foot-value, .gst-row .foot-value { color: #111827; font-weight: 600; }
+
 .gst-row { background: #fafafa; }
 .grand-total-row { background: #f3f4f6; border-top: 1.5px solid #e5e7eb !important; }
 .foot-label-bold { color: #111827; font-weight: 700; font-size: .82rem; }
 .foot-value-bold { color: #111827; font-weight: 700; font-size: .85rem; }
+
 .payment-summary { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
 .payment-row-item { display: flex; justify-content: space-between; align-items: center; padding: .45rem .75rem; border-bottom: 1px solid #f3f4f6; font-size: .82rem; color: #374151; }
 .payment-row-item:last-child { border-bottom: none; }
 .payment-row-item span:first-child { color: #6b7280; font-weight: 500; }
 .payment-row-item span:last-child { font-weight: 600; color: #111827; }
 .payment-badge { font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; }
+
 .badge-paid       { background: #dcfce7; color: #16a34a; }
 .badge-partial    { background: #fef3c7; color: #d97706; }
 .badge-pending    { background: #fef3c7; color: #d97706; }
 .badge-inprogress { background: #dbeafe; color: #1d4ed8; }
+
 .no-linked { text-align: center; color: #9ca3af; font-size: .82rem; padding: 1rem; background: #f9fafb; border-radius: 8px; border: 1px dashed #e5e7eb; }
 .linked-task-card { border: 1px solid #e5e7eb; border-radius: 7px; padding: .5rem .75rem; margin-bottom: .35rem; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
 .linked-task-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .3rem; }
 .linked-order { font-weight: 600; color: #111827; font-size: .85rem; }
 .linked-task-amounts { display: flex; gap: 1.25rem; font-size: .78rem; color: #6b7280; }
+
 .edit-dialog-body { padding: 1.25rem; }
 .edit-section-title { font-size: .65rem; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1.4px; margin-bottom: .75rem; }
 .edit-task-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .85rem; }
 .edit-customer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
 .edit-field { display: flex; flex-direction: column; gap: .35rem; }
 .edit-field label { font-size: .78rem; font-weight: 600; color: #374151; }
+
 .required { color: #ef4444; }
+
 .edit-field input[type="text"], .edit-field input[type="email"], .edit-field input[type="number"] { height: 38px; border: 1px solid #e5e7eb; border-radius: 7px; padding: 0 .75rem; font-size: .875rem; color: #111827; background: #ffffff; outline: none; transition: border-color .15s; }
 .edit-field input:focus { border-color: #22c55e; }
 .edit-field input[readonly] { background: #f9fafb; color: #6b7280; cursor: default; }
 .edit-field input.input-error { border-color: #ef4444 !important; background: #fff5f5; }
+
 .field-error { font-size: .73rem; color: #ef4444; margin-top: .1rem; }
+
 :host ::ng-deep .edit-field .p-select { height: 38px; border: 1px solid #e5e7eb !important; border-radius: 7px !important; width: 100%; }
 :host ::ng-deep .edit-field .p-select:focus-within { border-color: #22c55e !important; box-shadow: none !important; }
 :host ::ng-deep .edit-field .p-datepicker { height: 38px; border: 1px solid #e5e7eb !important; border-radius: 7px !important; width: 100%; }
@@ -101,6 +124,7 @@
 :host ::ng-deep .edit-field .p-datepicker:focus-within { border-color: #22c55e !important; box-shadow: none !important; }
 :host ::ng-deep .p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider { background: #22c55e !important; }
 :host ::ng-deep .p-toggleswitch .p-toggleswitch-slider { background: #d1d5db !important; }
+
 .edit-table-wrapper{ width:100%; border:1px solid #e5e7eb; border-radius:10px; overflow:hidden; background:#fff; }
 .edit-table-wrapper table{ width:100%; border-collapse:collapse; table-layout:fixed;}
 .edit-table-wrapper thead{ background:#f8fafc; }
@@ -109,6 +133,7 @@
 .edit-table-wrapper tr:last-child td{ border-bottom:none; }
 .edit-table-wrapper input{ width:100%; height:38px; border:1px solid #e2e8f0; border-radius:8px;  padding:0 .7rem; background:#fff; color:#0f172a; font-size:.9rem; outline:none;}
 .edit-table-wrapper input:focus{ border-color:#22c55e; box-shadow:0 0 0 2px rgba(34,197,94,.15); }
+
 .col-num{ width:55px; text-align:center!important; }
 .col-desc{ width:auto; }
 .col-qty{ width:100px; }
@@ -116,11 +141,14 @@
 .col-amount{ width:140px; text-align:right!important; }
 .col-action{width:80px; text-align:center!important; }
 .amount-cell{ text-align:right!important; padding-right:1.2rem!important; font-weight:700; color:#111827;}
+
 .delete-btn{ width:32px; height:32px; border:none; border-radius:8px; background:#f8fafc; cursor:pointer; transition:.2s; }
 .delete-btn:hover{ background:#fee2e2; }
+
 .add-row-wrapper { padding: .65rem 0 0; }
 .add-btn { background: none; border: 1.5px dashed #d1d5db; color: #6b7280; font-size: .83rem; font-weight: 500; padding: .4rem .9rem; border-radius: 7px; cursor: pointer; transition: border-color .15s, background .15s, color .15s; }
 .add-btn:hover { border-color: #22c55e; background: #f0fdf4; color: #16a34a; }
+
 .edit-payment-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: .5rem; align-items: start; }
 .edit-payment-panel { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; align-content: start;}
 .edit-summary-panel { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; align-self: start; }
@@ -128,6 +156,7 @@
 .edit-summary-row:last-child { border-bottom: none; }
 .edit-grand-total-row { background: #f9fafb; }
 .edit-grand-total-row span, .edit-grand-total-row strong { color: #111827; font-weight: 700; }
+
 .grand-total { font-size: .95rem; font-weight: 700; color: #111827; }
 .gst-control-row { flex-wrap: wrap; gap: .4rem; }
 .gst-left { display: flex; align-items: center; gap: .65rem; }
@@ -135,24 +164,33 @@
 .gst-label { font-size: .78rem; font-weight: 600; color: #374151; white-space: nowrap; }
 .gst-input { width: 65px; height: 30px; border: 1px solid #e5e7eb; border-radius: 6px; padding: 0 .4rem; font-size: .84rem; color: #111827; background: #ffffff; outline: none; }
 .gst-input:focus { border-color: #22c55e; }
+
 input.status-paid    { color: #16a34a !important; font-weight: 700; }
 input.status-partial { color: #d97706 !important; font-weight: 700; }
 input.status-pending { color: #d97706 !important; font-weight: 700; }
+
 @media (max-width:768px){
 .page{ width:100%; max-width:100%; margin:0; padding:12px; overflow-x:hidden; }
+
 .card{ width:100%; max-width:100%; padding:16px; overflow:hidden; }
 .card-header{ margin-bottom:12px; }
 .card-header h2{ font-size:1.1rem; }
+
 .toolbar{ display:flex; flex-direction:column; align-items:stretch; gap:12px; }
+
 :host ::ng-deep .p-iconfield{ width:100%; }
 :host ::ng-deep .p-iconfield .p-inputtext{ width:100%; height:44px; font-size:.9rem; }
 :host ::ng-deep .p-datatable{ width:100%; }
 :host ::ng-deep .p-datatable-wrapper{ overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; }
 :host ::ng-deep table{ width:max-content !important; min-width:100% !important; }
 :host ::ng-deep th, :host ::ng-deep td{ white-space:nowrap; }
+
 .actions{ display:flex; justify-content:center; align-items:center; gap:6px; flex-wrap:nowrap; }
+
 :host ::ng-deep .actions .p-button{ width:34px; height:34px; }
+
 .table-footer{ display:flex; justify-content:center; align-items:center; margin-top:10px; width:100%; }
+
 :host ::ng-deep .p-paginator{ display:flex !important; flex-wrap:nowrap !important; flex-direction:row !important; align-items:center; justify-content:center; gap:3px; padding:8px 4px; width:100%; max-width:100%; }
 :host ::ng-deep .p-paginator-first, :host ::ng-deep .p-paginator-last{ display:none !important; }
 :host ::ng-deep .p-paginator-prev, :host ::ng-deep .p-paginator-next{ min-width:26px !important; width:26px !important; height:26px !important; font-size:.75rem !important; flex-shrink:0; }
@@ -161,9 +199,11 @@ input.status-pending { color: #d97706 !important; font-weight: 700; }
 :host ::ng-deep .p-paginator .p-select{ width:50px !important; min-width:50px !important; max-width:50px !important; height:24px !important; flex-shrink:0; margin-left:4px; }
 :host ::ng-deep .p-paginator .p-select .p-select-label{ width:auto !important; padding:0 2px !important; font-size:.65rem !important; line-height:24px !important; }
 :host ::ng-deep .p-paginator .p-select .p-select-dropdown{ width:16px !important; }
+
 .detail-grid, .edit-task-grid, .edit-customer-grid, .edit-payment-layout, .edit-payment-panel{ display:grid; grid-template-columns:1fr; gap:14px; }
 .linked-task-top{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
 .linked-task-amounts{ display:flex; flex-direction:column; gap:4px; }
+
 :host ::ng-deep .p-dialog{ max-width:95vw!important; }
 :host ::ng-deep .p-dialog-mask{ padding:10px; }
 :host ::ng-deep .p-dialog .p-dialog-header{ padding:14px 16px!important; }
@@ -172,20 +212,28 @@ input.status-pending { color: #d97706 !important; font-weight: 700; }
 :host ::ng-deep .p-dialog .p-dialog-footer{ padding:12px!important; display:flex; flex-direction:column; gap:10px; }
 :host ::ng-deep .p-dialog .p-dialog-footer .p-button{ width:100%; }
 :host ::ng-deep .p-confirmdialog{ width:95vw!important; }
+
 .work-table-wrapper, .edit-table-wrapper{ width:100%; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; }
 .work-table, .edit-table-wrapper table{ min-width:650px; }
+
 .add-row-wrapper{ margin-top:12px; }
 .add-btn{ width:100%; height:42px; }
 .edit-summary-panel{ margin-top:12px; }
 .gst-control-row{ flex-direction:column; align-items:flex-start; gap:10px; }
 .gst-right{ width:100%; }
 .gst-input{ width:100%!important; }
+
 :host ::ng-deep .p-select, :host ::ng-deep .p-datepicker, :host ::ng-deep .p-inputtext, :host ::ng-deep .p-inputnumber, :host ::ng-deep .p-password{ width:100% !important; }
 :host ::ng-deep .p-select-label, :host ::ng-deep .p-inputtext{ font-size:.9rem; }
 :host ::ng-deep .p-select, :host ::ng-deep .p-datepicker{ height:44px; }
 :host ::ng-deep .p-datepicker input{ width:100%; }
 :host ::ng-deep .p-datepicker-trigger{ width:42px; }
+
 .field{ width:100%; min-width:0; }
 .field label{ margin-bottom:6px; }
 .field input{ width:100%; box-sizing:border-box; }
+@media (max-width:768px){
+:host ::ng-deep .p-select-overlay{ max-height:180px !important; overflow-y:auto; }
+:host ::ng-deep .p-paginator .p-select-overlay{ transform-origin:bottom center !important; }
+}
 }

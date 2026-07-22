@@ -3,7 +3,7 @@
         <span class="welcome">Welcome back 👋</span>
         <div class="header-actions">
             <p-selectButton [(ngModel)]="period" [options]="periods" optionLabel="label" optionValue="value"(ngModelChange)="loadDashboard()"></p-selectButton>
-            <p-button icon="pi pi-refresh" severity="secondary" [outlined]="true" [rounded]="true" [loading]="loading" (onClick)="loadDashboard()"></p-button>
+            <p-button icon="pi pi-refresh" severity="secondary" [text]="true" [rounded]="true" [loading]="loading" (onClick)="loadDashboard()"> </p-button>
         </div>
     </div>
 

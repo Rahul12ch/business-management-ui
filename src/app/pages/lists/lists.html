@@ -341,7 +341,7 @@
       </ng-template>
     </p-table>
     <div class="table-footer">
-      <p-paginator [rows]="taskPageSize" [totalRecords]="taskTotalRecords" [rowsPerPageOptions]="[5,10,20]" (onPageChange)="onTaskPageChange($event)"></p-paginator>
+      <p-paginator [rows]="taskPageSize" [totalRecords]="taskTotalRecords" [rowsPerPageOptions]="[5,10,20]" appendTo="body" (onPageChange)="onTaskPageChange($event)"></p-paginator>
     </div>
   </div>
 
@@ -386,7 +386,7 @@
       </ng-template>
     </p-table>
     <div class="table-footer">
-      <p-paginator [rows]="customerPageSize" [totalRecords]="customerTotalRecords" [rowsPerPageOptions]="[5,10,20]" (onPageChange)="onCustomerPageChange($event)"></p-paginator>
+      <p-paginator [rows]="customerPageSize" [totalRecords]="customerTotalRecords" [rowsPerPageOptions]="[5,10,20]"appendTo="body" (onPageChange)="onCustomerPageChange($event)"></p-paginator>
     </div>
   </div>
 </div>

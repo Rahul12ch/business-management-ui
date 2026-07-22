@@ -69,19 +69,20 @@
 }
 
 @media(max-width:768px){
-.dashboard-header{ flex-direction:column; align-items:flex-start; }
-.header-actions{ width:100%; flex-direction:column; align-items:stretch; }
+.dashboard-header{ flex-direction:column; align-items:flex-start; gap:.75rem;}
+.header-actions{ width:100%; display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:.75rem; }
 
-:host ::ng-deep .p-selectbutton{ width:100%; }
-:host ::ng-deep .p-selectbutton .p-button{ flex:1; }
-:host ::ng-deep .header-actions .p-button{  width:100%;}
+:host ::ng-deep .p-selectbutton{ flex:1; display:flex; }
+:host ::ng-deep .p-selectbutton .p-button{ flex:1; min-width:0; }
+:host ::ng-deep .header-actions .p-button{ width:2.5rem; min-width:2.5rem; height:2.5rem; padding:0; flex-shrink:0; }
 
 .kpi{ min-height:76px; }
 .kpi h2{ font-size:1.35rem; }
-.kpi i{ width:44px; height:44px; font-size:1.2rem;}
+.kpi i{ width:44px; height:44px; font-size:1.2rem; }
 
 .chart-card,
 .table-card{ height:auto; }
+
 .chart-container{ height:240px; }
 
 :host ::ng-deep .dashboard-table table{ min-width:600px; }
