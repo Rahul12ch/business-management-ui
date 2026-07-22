@@ -3,16 +3,17 @@
 .dashboard-header{ display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap; }
 .dashboard-header h2{ margin:0; font-size:1.8rem; font-weight:700; }
 .dashboard-header .welcome{ color:#6b7280; font-size:.95rem; display:block; margin-top:.25rem; }
+.dashboard-header .welcome strong{ color:var(--text-color); }
+
+.header-actions{ display:flex; align-items:center; gap:.75rem; }
 
 :host ::ng-deep .p-selectbutton{ display:flex; }
 :host ::ng-deep .p-selectbutton .p-button{ height:36px; min-width:90px; font-size:.85rem; padding:.5rem 1rem; }
-
+:host ::ng-deep .header-actions .p-button{ height:36px; padding:.5rem 1rem; font-size:.85rem; }
 :host ::ng-deep .grid{ margin:0; }
 :host ::ng-deep .grid>[class*="col"]{ padding:.65rem; min-width:0; }
 
-@media(min-width:1200px){
-.xl\:col-2-4{ flex:0 0 20%; max-width:20%; }
-}
+@media(min-width:1200px){.xl\:col-2-4{ flex:0 0 20%; max-width:20%; } }
 
 :host ::ng-deep .p-card{ height:100%; border-radius:14px; border:none; box-shadow:0 2px 12px rgba(0,0,0,.06); }
 :host ::ng-deep .p-card-body{ display:flex; flex-direction:column; height:100%; padding:1.25rem; }
@@ -22,13 +23,15 @@
 .kpi{ display:flex; justify-content:space-between; align-items:center; min-height:92px; }
 .kpi small{ display:block; color:#6b7280; font-weight:600; font-size:.85rem; margin-bottom:.35rem; }
 .kpi h2{ margin:0; font-size:1.75rem; font-weight:700; line-height:1.1; }
-.kpi i{ width:52px; height:52px; border-radius:12px; display:flex; justify-content:center; align-items:center; background:rgba(59,130,246,.10);  color:var(--primary-color); font-size:1.4rem; }
+.kpi i{ width:52px; height:52px; border-radius:12px; display:flex; justify-content:center; align-items:center; background:rgba(59,130,246,.10); color:var(--primary-color); font-size:1.4rem; }
 
 .chart-card,
 .table-card{ height:100%; }
+
 .chart-container{ height:280px; }
 
-:host ::ng-deep .p-chart{ width:100% !important; height:100% !important; }
+:host ::ng-deep .p-chart{ width:100%!important; height:100%!important; }
+
 .dashboard-table{ width:100%; }
 
 :host ::ng-deep .dashboard-table .p-datatable-wrapper{ overflow-x:auto; }
@@ -36,7 +39,8 @@
 :host ::ng-deep .dashboard-table th{ white-space:nowrap; font-weight:600; }
 :host ::ng-deep .dashboard-table td{ white-space:nowrap; padding:.85rem 1rem; }
 
-:host ::ng-deep .pending-table table{ min-width:100% !important; table-layout:fixed; }
+:host ::ng-deep .pending-table table{ min-width:100%!important; table-layout:fixed; }
+
 :host ::ng-deep .pending-table th,
 :host ::ng-deep .pending-table td{ padding:.85rem .9rem; white-space:nowrap; }
 
@@ -44,7 +48,7 @@
 :host ::ng-deep .pending-table td:nth-child(1){ width:45%; text-align:left; }
 
 :host ::ng-deep .pending-table th:nth-child(2),
-:host ::ng-deep .pending-table td:nth-child(2){  width:25%;  text-align:center; }
+:host ::ng-deep .pending-table td:nth-child(2){ width:25%; text-align:center; }
 
 :host ::ng-deep .pending-table th:nth-child(3),
 :host ::ng-deep .pending-table td:nth-child(3){ width:30%; text-align:right; }
@@ -54,7 +58,7 @@
 @media(max-width:1200px){
 .dashboard-header{ align-items:flex-start; }
 .chart-card,
-.table-card{  min-height:unset;  height:auto; }
+.table-card{ min-height:unset; height:auto; }
 .chart-container{ height:300px; }
 }
 
@@ -66,25 +70,26 @@
 
 @media(max-width:768px){
 .dashboard-header{ flex-direction:column; align-items:flex-start; }
+.header-actions{ width:100%; flex-direction:column; align-items:stretch; }
 
 :host ::ng-deep .p-selectbutton{ width:100%; }
 :host ::ng-deep .p-selectbutton .p-button{ flex:1; }
+:host ::ng-deep .header-actions .p-button{  width:100%;}
 
 .kpi{ min-height:76px; }
 .kpi h2{ font-size:1.35rem; }
-.kpi i{ width:44px; height:44px; font-size:1.2rem; }
+.kpi i{ width:44px; height:44px; font-size:1.2rem;}
 
 .chart-card,
 .table-card{ height:auto; }
 .chart-container{ height:240px; }
 
-:host ::ng-deep .dashboard-table table{  min-width:600px; }
-:host ::ng-deep .pending-table .p-datatable-table{ min-width:0 !important; }
+:host ::ng-deep .dashboard-table table{ min-width:600px; }
+:host ::ng-deep .pending-table .p-datatable-table{ min-width:0!important; }
 }
 
 @media(max-width:480px){
 .dashboard{ padding:.75rem; }
-
 :host ::ng-deep .grid>[class*="col"]{ padding:.45rem; }
 .kpi h2{ font-size:1.25rem; }
 :host ::ng-deep .p-card-title{ font-size:1.05rem; }
