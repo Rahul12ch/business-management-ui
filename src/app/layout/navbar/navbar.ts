@@ -55,8 +55,7 @@ export class Navbar implements OnInit, OnDestroy {
         this.loadUser(); this.closeAllMenus();
       });
   }
-  ngOnDestroy(): void { document.body.classList.remove('menu-open');
-    window.removeEventListener('profileUpdated', this.profileUpdatedHandler);
+  ngOnDestroy(): void { window.removeEventListener('profileUpdated', this.profileUpdatedHandler);
     this.notificationTimer?.unsubscribe();
   }
 
@@ -118,26 +117,21 @@ updatePageTitle(url: string): void {
 }
 
   toggleSidebar(): void { this.menuToggle.emit(); }
- toggleNotifications(): void {
+  toggleNotifications(): void {
     this.showNotifications = !this.showNotifications;
-    if (this.showNotifications) { this.showDropdown = false; document.body.classList.add('menu-open');
-    } 
-    else { document.body.classList.remove('menu-open'); }
-}
+    if (this.showNotifications) this.showDropdown = false;
+  }
 
- toggleDropdown(): void { this.showDropdown = !this.showDropdown;
-    if (this.showDropdown) { this.showNotifications = false;
-        document.body.classList.add('menu-open');
-    } else {
-        document.body.classList.remove('menu-open'); }
-}
+  toggleDropdown(): void {
+    this.showDropdown = !this.showDropdown;
+    if (this.showDropdown) this.showNotifications = false;
+  }
 
   goProfile(): void { this.closeAllMenus();
     this.router.navigate(['/profile']);
   }
 
   logout(): void {
-     document.body.classList.remove('menu-open');
     this.closeAllMenus();
     this.notificationTimer?.unsubscribe();
     this.authService.logout();
@@ -147,6 +141,5 @@ updatePageTitle(url: string): void {
   closeAllMenus(): void {
     this.showDropdown = false;
     this.showNotifications = false;
-    document.body.classList.remove('menu-open');
-}
+  }
 }
