@@ -19,7 +19,7 @@
 .mark-read-btn{background:none;border:none;color:#22c55e;font-size:.8rem;font-weight:600;cursor:pointer;margin-left:.5rem}
 .mark-read-btn:hover{text-decoration:underline}
 
-.notification-list{ max-height:380px; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.notification-list{ max-height:380px; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
 .notification-item{display:flex;align-items:center;gap:.9rem;padding:1rem;cursor:pointer;transition:.2s;border-bottom:1px solid #f1f5f9}
 .notification-item:hover{background:#f8fafc}
 .notification-icon{width:42px;height:42px;border-radius:12px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -58,7 +58,7 @@ overflow:hidden;font-size:1rem;font-weight:700;flex-shrink:0}
 .user-name{font-size:.95rem;font-weight:600;color:#1e293b}
 .user-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:280px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;
 overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.12);z-index:2000;animation:dropdownIn .15s ease}
-body.menu-open{ overflow:hidden; touch-action:none; }
+
 
 @keyframes dropdownIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .dropdown-header{display:flex;align-items:center;gap:1rem;padding:1rem;border-bottom:1px solid #e2e8f0}
@@ -96,11 +96,11 @@ align-items:center;justify-content:center;color:#475569;font-size:1.2rem;transit
 .user-section .pi-chevron-down{ display:none; }
 .user-section{  padding:0; gap:0; }
 
-.notification-dropdown{ position:fixed; top:72px; left:12px; right:12px; width:auto;
-max-width:none; height:75vh; display:flex; flex-direction:column; border-radius:14px; z-index:3000; } 
+.notification-dropdown{ position:fixed; top:72px; left:12px; right:12px;
+width:auto; max-width:none; max-height:75vh; border-radius:14px; z-index:3000; }
 
 .notification-header{ padding:14px; font-size:.95rem; }
-.notification-list{ flex:1; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.notification-list{ max-height:55vh; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
 .notification-item{ padding:12px; gap:10px; }
 .notification-icon{ width:40px; height:40px; }
 .notification-title{ font-size:.9rem; }
@@ -116,5 +116,4 @@ width:auto; max-width:none; border-radius:14px; z-index:3000; }
 .dropdown-header{ padding:16px; }
 .dropdown-item{ padding:14px 16px; }
 .dropdown-backdrop{ z-index:2999; }
-
 }
